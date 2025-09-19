@@ -1420,3 +1420,20 @@ main.publications-main .pub-sidebar [class*="text-center"] {
   color: #666;
   margin: 40px 0 20px;
 }
+
+/* === 검색 바 타이핑 텍스트 줄바꿈 개선 === */
+.type-line{
+  white-space: normal;      /* 줄바꿈 허용 */
+  overflow: visible;        /* 잘려나가지 않게 */
+  overflow-wrap: anywhere;  /* 아주 긴 단어/URL도 강제 줄바꿈 */
+  word-break: normal;       /* 한글 줄바꿈 자연스럽게 */
+}
+
+/* 여러 줄이 될 때 아이콘/텍스트 상단 정렬(모바일에서만 적용 권장) */
+@media (max-width: 600px){
+  .search-pill{ align-items: flex-start; }
+  .type-area{ line-height: 1.35; }
+  /* 글자 조금만 더 유연하게 */
+  .type-area{ font-size: clamp(13px, 4.2vw, 16px); }
+  .search-pill{ padding-top: 16px; padding-bottom: 16px; }
+}

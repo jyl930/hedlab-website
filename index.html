@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Human & Environment Design Lab</title>
+  <!-- Urbanist (영문) + Noto Sans KR (국문) -->
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --fg:#0a0a0a;
+      --muted:#bdbdbd;
+      --pill-bg:#ffffff;
+      --ring:#f0f0f0;
+      --shadow:0 12px 40px rgba(0,0,0,.08);
+      --maxw:900px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: "Urbanist","Noto Sans KR",system-ui,Segoe UI,Roboto,Apple Color Emoji,Segoe UI Emoji,sans-serif;
+      color:var(--fg);
+      background:#fff;
+      line-height:1.4;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+
+    /* 배경 히어로 영상 */
+    .hero-video-wrap{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none}
+    .hero-video{width:100%; height:100%; object-fit:cover; opacity:.12; filter: saturate(90%) contrast(100%);}
+    .hero-fallback{position:absolute; inset:0; background:linear-gradient(180deg,#fff, #fff 40%, #f9f9f9 100%); opacity:.6}
+
+    /* 레이아웃 */
+    .page{position:relative; z-index:1; min-height:100dvh; display:grid; grid-template-rows:auto 1fr;}
+
+    header{display:flex; justify-content:center; padding:32px 20px 16px}
+    .lab-name{font-weight:700; letter-spacing:.4px; font-size:18px; opacity:.9}
+
+    main{display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:48px; padding:40px 16px 80px}
+
+    /* 검색 바 형태의 타이핑 박스 */
+    .search-pill{width:min(92vw,var(--maxw)); max-width:var(--maxw); min-height:64px; padding:14px 22px; border-radius:999px; background:var(--pill-bg); box-shadow:var(--shadow); border:1px solid var(--ring); display:flex; align-items:center; gap:14px}
+
+    .icon{flex:0 0 auto; width:28px; height:28px; display:grid; place-items:center; opacity:.55}
+    .type-area{position:relative; flex:1; min-width:0; font-size: clamp(14px, 2.1vw, 18px); color:#4a4a4a;}
+    .type-line{white-space:nowrap; overflow:hidden}
+    .cursor{display:inline-block; width:1px; height:1.1em; background:#6b6b6b; vertical-align:-2px; margin-left:2px; animation:blink .9s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* 비디오 타자(선택형) */
+    .typing-video{display:none; width:100%; height:28px; object-fit:contain}
+    .type-area.video-on .typing-video{display:block}
+    .type-area.video-on .type-line,.type-area.video-on .cursor{display:none}
+
+    /* 메뉴 */
+    .menu{display:flex; flex-direction:column; align-items:center; gap:16px; margin-top:12px}
+    .menu a{font-weight:700; letter-spacing:.8px; font-size:clamp(22px, 4vw, 36px); text-decoration:none; color:#bdbdbd; transition:color .25s ease, transform .25s ease}
+    .menu a:hover{color:#111; transform:translateY(-1px)}
+
+    /* 접근성: 모션 최소화 */
+    @media (prefers-reduced-motion: reduce){
+      .cursor{animation:none}
+      .hero-video{animation:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- 배경 히어로 영상 (원하는 mp4를 assets/hero.mp4 위치에 두세요) -->
+  <div class="hero-video-wrap" aria-hidden="true">
+    <video class="hero-video" id="heroVideo" src="assets/hero.mp4" muted playsinline loop preload="metadata" poster="assets/hero_poster.jpg"></video>
+    <div class="hero-fallback"></div>
+  </div>
+
+  <div class="page">
+    <header>
+      <div class="lab-name">Human &amp; Environment Design Lab</div>
+    </header>
+
+    <main>
+      <!-- 타이핑 바 -->
+      <div class="search-pill" role="region" aria-label="Lab mission statement typed">
+        <div class="icon" aria-hidden="true">
+          <!-- 라인형 돋보기 아이콘 (SVG) -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="7.25" stroke="#3c3c3c" stroke-width="1.5"/>
+            <path d="M16.8 16.8L21 21" stroke="#3c3c3c" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="type-area" id="typeArea">
+          <!-- 텍스트 타이핑 버전 -->
+          <span class="type-line" id="typeLine"></span><span class="cursor" aria-hidden="true"></span>
+
+          <!-- 비디오 타자 버전(원한다면 assets/typing.mp4 준비) -->
+          <video class="typing-video" id="typingVideo" src="assets/typing.mp4" muted playsinline preload="metadata"></video>
+        </div>
+      </div>
+
+      <!-- 메인 메뉴 -->
+      <nav class="menu" aria-label="Primary">
+        <a href="member.html">MEMBER</a>
+        <a href="publications.html">PUBLICATIONS</a>
+        <a href="activities.html">ACTIVITIES</a>
+        <a href="achievements.html">ACHIEVEMENTS</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    // ===== 옵션 =====
+    const USE_TYPING_VIDEO = false; // true 로 바꾸면 assets/typing.mp4 사용
+    const TYPING_TEXT = "we research sustainable spaces, exploring new spatial paradigms for human-environment coexistence.";
+    const TYPE_SPEED = 38; // ms per char
+    const START_DELAY = 550; // ms
+
+    // 히어로 영상 자동재생 보정(모바일 대비)
+    const hero = document.getElementById('heroVideo');
+    if(hero){
+      const tryPlay = () => hero.play().catch(()=>{});
+      document.addEventListener('visibilitychange', tryPlay, { once:true });
+      window.addEventListener('load', tryPlay, { once:true });
+    }
+
+    // 타이핑 세팅
+    const typeArea = document.getElementById('typeArea');
+    const typeLine = document.getElementById('typeLine');
+    const typingVideo = document.getElementById('typingVideo');
+
+    if(USE_TYPING_VIDEO){
+      typeArea.classList.add('video-on');
+      // 작은 박스 안에 꼭 맞게 보이도록 (재생 길이가 끝나면 멈춤 상태 유지)
+      typingVideo && typingVideo.addEventListener('canplay',()=> typingVideo.play().catch(()=>{}));
+    } else {
+      // 순수 텍스트 타이핑
+      let i = 0;
+      typeLine.textContent = '';
+      setTimeout(function tick(){
+        if(i <= TYPING_TEXT.length){
+          typeLine.textContent = TYPING_TEXT.slice(0, i++);
+          setTimeout(tick, TYPE_SPEED);
+        }
+      }, START_DELAY);
+    }
+  </script>
+
+    <footer class="site-footer">
+    <p>© 2025 Human & Environment Design Lab. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

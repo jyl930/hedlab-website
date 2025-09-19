@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Human & Environment Design Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="subpage-header">
+  <h1 class="lab-name">
+    <a href="index.html">Human & Environment Design Lab</a>
+  </h1>
+  <nav class="nav-menu">
+    <ul>
+      <li><a href="member.html" class="menu-member">MEMBER</a></li>
+      <li><a href="publications.html" class="menu-publications">PUBLICATIONS</a></li>
+      <li><a href="activities.html" class="menu-activities">ACTIVITIES</a></li>
+      <li><a href="achievements.html" class="menu-achievements">ACHIEVEMENTS</a></li>
+      <li><a href="contact.html" class="menu-contact active">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="contact-main">
+  <section class="hero-video">
+    <video autoplay loop muted playsinline>
+      <source src="assets/contact-hed.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section class="contact-content">
+    <h2>Join us</h2>
+    <p>
+      인간과 환경디자인 연구실(Human & Environment Design Lab)은 인간과 환경이 조화롭게 공존하는 공간을 만들기 위해 친환경적이고 지속가능한 디자인과 공간재생을 중심으로 연구를 진행합니다. 본 연구실은 공간이 사람들의 삶과 지역사회, 그리고 자연환경에 미치는 영향을 다각도로 탐구하며, 이를 통해 사회적 가치와 환경적 책임을 실현할 수 있는 디자인 방안을 모색합니다.
+    </p>
+    <p>
+      또한 BK21 FOUR (MI) 공간재생디자인 인재양성팀 사업을 기반으로 체계적인 디자인 접근 방식을 통한 융합적인 연구를 진행함으로써 연구의 지평을 확장하며, 학문적 성장은 물론 산학 협력 및 학회 활동을 통해 국제적 경쟁력을 갖춘 연구 인재를 양성하고 있습니다.
+    </p>
+    <p>
+      석·박사과정에 진학을 희망하는 학생들은 황연숙 교수님과 면담해볼 것을 권장합니다. 대학원 입시와 관련된 일반적인 사항은 한양대학교 대학원 홈페이지(<a href="http://www.sgs.hanyang.ac.kr" target="_blank">http://www.sgs.hanyang.ac.kr</a>)의 입시 정보를 참고해 주시기 바랍니다.
+    </p>
+  </section>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const path = window.location.pathname;
+    const filename = path.split('/').pop();
+
+    const menuMap = {
+      'member.html': 'menu-member',
+      'publications.html': 'menu-publications',
+      'activities.html': 'menu-activities',
+      'achievements.html': 'menu-achievements',
+      'contact.html': 'menu-contact'
+    };
+
+    const targetClass = menuMap[filename];
+    if (targetClass) {
+      const activeLink = document.querySelector(`.${targetClass}`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+    }
+  });
+</script>
+
+<footer class="site-footer">
+  <p>© 2025 Human & Environment Design Lab. All rights reserved.</p>
+</footer>
+
+
+</body>
+</html>

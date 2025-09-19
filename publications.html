@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications | HED Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="subpage-header">
+    <h1 class="lab-name">
+      <a href="index.html">Human & Environment Design Lab</a>
+    </h1>
+    <nav class="nav-menu">
+      <ul>
+      <li><a href="member.html" class="menu-member">MEMBER</a></li>
+      <li><a href="publications.html" class="menu-publications active">PUBLICATIONS</a></li>
+      <li><a href="activities.html" class="menu-activities">ACTIVITIES</a></li>
+      <li><a href="achievements.html" class="menu-achievements">ACHIEVEMENTS</a></li>
+      <li><a href="contact.html" class="menu-contact">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="publications-main">
+    <!-- 왼쪽 사이드바: 탭 + 필터 -->
+    <aside class="pub-sidebar">
+      <h2 id="filters-title">Filters</h2>
+
+      <div class="tab-menu">
+        <a href="#" class="tab active" onclick="switchTab('recent'); return false;">Recent Publications (2020~)</a>
+        <a href="#" class="tab" onclick="switchTab('past'); return false;">Past Publications (2010~)</a>
+      </div>
+      
+      <!-- 필터: 칩 UI -->
+      <div class="pub-filters" aria-label="Filter publications">
+        <div class="filter-group" role="group" aria-label="Category">
+          <span class="filter-label">Category</span>
+          <div class="chip-row" id="pubCatChips"></div>
+        </div>
+
+        <div class="filter-group" role="group" aria-label="Year">
+          <span class="filter-label">Year</span>
+          <div class="chip-row" id="pubYearChips"></div>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- 본문 -->
+    <div class="publications-content">
+    <!-- Recent Publications -->
+    <section class="publications-section active" id="recent">
+      <h3>Recent Publications (2020~)</h3>
+
+      <div class="pub-category">
+        [Regeneration & Local Community Spaces]  <!-- Regeneration & Local Community Spaces -->
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          <a href="assets/pdf/recent_rc8.pdf" target="_blank" download>
+            A Case Study on Amenity Characteristics of Urban Regeneration Culture and Arts Space
+          </a> 
+          <br><span class="authors">Seung Hee Nam, You Lim Hwang, Yeon Sook Hwang(2024), Journal of the Korean Institute of Interior Design(KCI), 33(3), 29-37</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc7.pdf" target="_blank" download>
+            A Case Study on the Regeneration Space Utilizing Closed School Applying the Planning Elements of Placemaking
+          </a>
+          <br><span class="authors">Yu Jin Kim, Yeon Sook Hwang(2024), Journal of the Korean Institute of Interior Design(KCI), 33(2), 20-29</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc6.pdf" target="_blank" download>
+            A Study of the Characteristics of Upcycling Complex Cultural Spaces from a Space Marketing Perspective
+          </a> 
+          <br><span class="authors">Kyung Hwa Han, Da Jeong Jang, Seung Hee Nam, Yeon Sook Hwang(2023), Journal of the Korean Institute of Interior Design(KCI), 32(2), 14-26</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc5.pdf" target="_blank" download>
+            Analysis of Life-Oriented School Complex Facilities for Local Community
+          </a>
+          <br><span class="authors">Yu Jin Kim, Yeon Sook Hwang(2025), Journal of the Korean Institute of Interior Design(KCI), 34(4), 64-71</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc4.pdf" target="_blank" download>
+            A Study on the Space Composition and User Satisfaction of the Youth Complex Culture Space
+          </a>            
+          <br><span class="authors">Xian Ji Jin, Hui Zi Jin, Yeon Sook Hwang(2020), Journal of the Korean Institute of Interior Design(KCI), 29(5), 76-86</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc3.pdf" target="_blank" download>
+            A Study on the Active Designs in Domestic Urban Parks for the Health Improvement of Modern People - Based on the Application of Active Design in NYC -
+          </a>          
+          <br><span class="authors">Yea Eun Park, Jin Hee Park, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(5), 9-19</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc2.pdf" target="_blank" download>
+            Spatial Characteristics of Common Spaces of Co-Living Houses for Young Single-Person Households
+          </a>
+          <br><span class="authors">Kyung Eun Kim, Kyung Hwa Han, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(2), 114-124</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_rc1.pdf" target="_blank" download>
+            Study on the communication characteristics of Single-person Households Co-housing
+          </a>
+          <br><span class="authors">Ting Liu, Sung Hyun Moon, So Hyeon Shin, Yeon Sook Hwang(2020), Journal of the Korea Institute of Spatial Design(KCI), 15(8), 499-510</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+
+      <div class="pub-category">
+        [Inclusive & Age-Friendly Spaces]  <!-- Inclusive & Age-Friendly Spaces -->
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          <a href="assets/pdf/recent_ia10.pdf" target="_blank" download>
+            Universal Design Characteristics of Public Spaces in Urban Regeneration Cultural and Art Spaces
+          </a>        
+          <br><span class="authors">Ting Liu, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(1), 88-96</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia9.pdf" target="_blank" download>
+            A Study on the Evaluation of Universal Design Features in Complex Cultural Space in Urban Regeneration Projects
+          </a>  
+          <br><span class="authors">Sung Hyun Moon, Hyeon Kyeong Kim, Yeon Sook Hwang(2021), Journal of the Korean Institute of Interior Design(KCI), 30(5), 66-77</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia8.pdf" target="_blank" download>
+            Spatial Planning Indicators for Elderly Welfare Facilities - In-Depth User Interviews with a Focus on Community Sustainable Living -
+          </a>
+          <br><span class="authors">Ja Young Moon, Yeon Sook Hwang(2024), Journal of the Korean Institute of Interior Design(KCI), 33(5), 67-78</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia7.pdf" target="_blank" download>
+            A Study on the Age-Friendly Factors of National and Public Museums in Seoul
+          </a>
+          <br><span class="authors">Yu Jin Kim, Yeon Sook Hwang(2024), Journal of the Korean Institute of Interior Design(KCI), 33(4), 41-49</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia6.pdf" target="_blank" download>
+            A Study on the Space Composition and Utilization of Welfare Facilities in Elderly Welfare Housing
+          </a>
+          <br><span class="authors">Ja Young Moon, Yeon Sook Hwang(2023), Journal of the Korean Institute of Interior Design(KCI), 32(5), 70-83</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia5.pdf" target="_blank" download>
+            A Study on the Evaluation Index of Welfare Housing Facilities for the Elderly for Aging in Community
+          </a>
+          <br><span class="authors">Ja Young Moon, Yeon Sook Hwang(2023), Journal of the Korean Institute of Interior Design(KCI), 32(2), 1-13</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia4.pdf" target="_blank" download>
+            Characteristics of Smart Bus Stops in Age-Friendly Cities through Case Analysis
+          </a>
+          <br><span class="authors">Kyung Hwa Han, Su A Kim, Yeon Sook Hwang(2022), Journal of the Korea Institute of Spatial Design(KCI), 17(7), 377-390</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia3.pdf" target="_blank" download>
+            Case Study of Senior Welfare Center with Characteristics of the Aged-Friendly Healthcare Space
+          </a>
+          <br><span class="authors">Hee Jee Choi, Xiao Bo Feng, Hyun Jung Kim, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(5), 20-30</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia2.pdf" target="_blank" download>
+            Analysis of Pedestrian Environment Factors in Elderly Protection Areas
+          </a>             
+          <br><span class="authors">Kyung Eun Kim, Yea Eun Park, Yeon Sook Hwang(2021), Journal of the Korea Institute of Spatial Design(KCI), 16(7), 175-186</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ia1.pdf" target="_blank" download>
+            Signage System Evaluation of Subway Station Considering the Visual Perception Characteristics of the Elderly
+          </a>
+          <br><span class="authors">Soo Min Yoon, So Yeong Jeon, Yeon Sook Hwang(2021), Journal of the Korean Institute of Interior Design(KCI), 30(4), 77-85</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+
+      <div class="pub-category">
+        [Public & Commercial Spaces]  <!-- Public & Commercial Spaces -->
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          <a href="assets/pdf/recent_pc6.pdf" target="_blank" download>
+            A Study on the Public Characteristics in Lobby of Contemporary Office Buildings
+          </a>
+          <br><span class="authors">Yea Eun Park, So Yeong Jeon, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(3), 33-41</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_pc5.pdf" target="_blank" download>
+            The Characteristics of Biophilic Design on Lobby Space of Office Building
+          </a>
+          <br><span class="authors">Soo Min Yoon, Yeon Sook Hwang(2020), Journal of the Korean Institute of Interior Design(KCI), 29(5), 142-149</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_pc4.pdf" target="_blank" download>
+            A Case Study On The Characteristics Of Future Heritage In Seoul Through Space Branding
+          </a>          
+          <br><span class="authors">Su A Kim, Yeon Sook Hwang(2023), Journal of the Korean Institute of Interior Design(KCI), 32(1), 85-95</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_pc3.pdf" target="_blank" download>
+            Study on the Design of Furniture Showroom Using Spatial Marketing Strategic Elements
+          </a>
+          <br><span class="authors">Kyung Hwa Han, Yeon Sook Hwang(2023), Journal of the Korean Institute of Interior Design(KCI), 32(5), 84-92</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_pc2.pdf" target="_blank" download>
+            A Study on the Regional Expression Characteristics of Flagship Stores
+          </a>
+          <br><span class="authors">So Yeong Jeon, Xu Kang Song, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(5), 31-42</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_pc1.pdf" target="_blank" download>
+            A Study on the Interior Space Characteristics of Consumer Rest Space in Duty Free Shops
+          </a>
+          <br><span class="authors">Dan Qiong Liu, Ja Young Moon, Yeon Sook Hwang(2019), Journal of the Korea Institute of Spatial Design(KCI), 14(7), 509-520</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+
+      <div class="pub-category">
+        [Educational & Cultural Spaces]  <!-- Educational & Cultural Spaces -->
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+        <li>
+          <a href="assets/pdf/recent_ec12.pdf" target="_blank" download>
+            Enhancing Spatial Acceptance of Smart Docents through Digital Inclusion and Affordance Design
+          </a>            
+          <br><span class="authors">Ju Young Lee, Yeon Sook Hwang(2025), Journal of the Korean Institute of Interior Design(KCI), 34(4), 55-63</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec11.pdf" target="_blank" download>
+            User Perception Analysis of Museum Spatial Design Based on Place Characteristics
+          </a>
+          <br><span class="authors">Feng Ming Guo, Ju Young Lee, Yeon Sook Hwang (2025.08), Journal of the Korea Institute of Spatial Design(KCI), 20(5), 181-190</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec10.pdf" target="_blank" download>
+            A Case Study on Museum Spatial Design Characteristics for the Sense of Place
+          </a>          
+          <br><span class="authors">Feng Ming Guo, Yu Jin Kim, Yeon Sook Hwang(2025), Journal of the Korea Institute of Spatial Design(KCI), 20(5), 333-344</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec9.pdf" target="_blank" download>
+            A Study on Spatial Design Elements in SNS-Friendly Exhibition Spaces Using Sentiment Analysis of Social Media Text
+          </a>          
+          <br><span class="authors">Ju Young Lee, Hea Soo Ryu, Yeon Sook Hwang(2025), Journal of the Korea Institute of Spatial Design(KCI), 20(3), 529-540</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec8.pdf" target="_blank" download>
+            Analysis of Museum Exhibition Elements in Seoul-Based National and Public Museums
+          </a>          
+          <br><span class="authors">Ting Liu, Yu Jin Kim, Yeon Sook Hwang(2025), Journal of the Korean Institute of Interior Design(KCI), 34(2), 106-114</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec7.pdf" target="_blank" download>
+            Case Study through Strategic Elements of Space Branding in Specialized Libraries
+          </a>          
+          <br><span class="authors">Su A Kim, Yeon Sook Hwang(2024), Journal of the Korean Institute of Interior Design(KCI), 33(2), 30-39</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec6.pdf" target="_blank" download>
+            A Study on the Interior Design Preference of Multimedia Centers in Public Libraries from User' Perspective
+          </a>          
+          <br><span class="authors">Eun Young Lim, Yeon Sook Hwang(2022), Journal of the Korean Institute of Interior Design(KCI), 31(2), 55-61</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec5.pdf" target="_blank" download>
+            A Study on the Needs of Public Library Multimedia Center Space Planning by User Analysis Tool
+          </a>          
+          <br><span class="authors">Eun Young Lim, Yeon Sook Hwang(2021), Journal of the Korean Institute of Interior Design(KCI), 30(2), 57-64</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec4.pdf" target="_blank" download>
+            A Study on the Satisfaction of Multimedia Centers in Public Libraries for the Construction of Digital-friendly Design
+          </a>          
+          <br><span class="authors">Eun Young Lim, Yeon Sook Hwang(2020), Journal of the Korean Institute of Interior Design(KCI), 29(1), 126-133</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec3.pdf" target="_blank" download>
+            A Study on the Characteristics of Educational Spaces by Elementary School Grade for Creative Education Environment - Focused on Case Study of Seoul Metropolitan Office of Education’s “Dreaming Classroom” -
+          </a>
+          <br><span class="authors">Yu Jin Kim, Ji Yeon Kang, Yeon Sook Hwang(2023), Journal of the Korean Institute of Interior Design(KCI), 32(1), 76-84</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec2.pdf" target="_blank" download>
+            An Analysis of Maker Space in Elementary School with Smart Education
+          </a>
+          <br><span class="authors">Ji Hyun Jeon, Young Hyun Kim, Jun Ah Yu, Yeon Sook Hwang(2022), Journal of the Korea Institute of Spatial Design(KCI), 17(5), 183-196</span>
+        </li>
+        <li>
+          <a href="assets/pdf/recent_ec1.pdf" target="_blank" download>
+            A Study on the Characteristics of Nursery Space in Workplace Nursery Facilities
+          </a>
+          <br><span class="authors">Dan Qiong Liu, Ja Young Lee, Hyeon Sang Jeon, Yeon Sook Hwang(2020), Journal of the Korea Institute of Spatial Design(KCI), 15(7), 367-376</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+    </section>
+
+    <!-- Past Publications -->
+    <section class="publications-section" id="past">
+      <h3>Past Publications (2010~)</h3>
+
+      <div class="pub-category">
+        [2019]
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          Spatial Characteristics by Case Study of Container Complex Cultural Space
+          <br><span class="authors">Yu Ri Jung, Sung Sin Eo, Yeon Sook Hwang(2019), Journal of the Korean Institute of Interior Design(KCI), 28(6), 163-175</span>
+        </li>
+        <li>
+          A Study on the Experience Design of Complex Cultural Space that Regenerated Abandoned Industrial Facilities
+          <br><span class="authors">Ji Hyeon Kim, Yi Kyung Noh, Yeon Sook Hwang(2019), Journal of the Korean Institute of Interior Design(KCI), 28(5), 79-88</span>
+        </li>
+        <li>
+          A Study on the Utilization of Users in the Multimedia Centers of Public Library with KDQ Evaluation Indicators
+          <br><span class="authors">Eun Young Lim, Yeon Sook Hwang(2019), Journal of the Korean Institute of Interior Design(KCI), 28(2), 138-145</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+
+      <div class="pub-category">
+        [2018]
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          A Study on the Characteristics of Emotional Expression in Digital Signage - Focusing on Company Exhibition Halls in the Metropolitan Area -
+          <br><span class="authors">Yi Kyung Noh, Yeon Sook Hwang(2018), Journal of the Korean Institute of Interior Design(KCI), 27(6), 49-57</span>
+        </li>
+        <li>
+          A Study on the Design Characteristics of Multimedia Center in Public Library by Space Planning Elements
+          <br><span class="authors">Eun Young Lim, Yeon Sook Hwang(2018), Journal of the Korean Institute of Interior Design(KCI), 27(2), 68-76</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+
+      <div class="pub-category">
+        [2017]
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          A Case Study of Rehabilitation Design Characteristics of Exhibition Space from Idle Facilities - Focus on Idle Industrial Facilities and Idle Non-Industrial Facilities -
+          <br><span class="authors">Hyun Jung Kim, Yeon Sook Hwang(2017), Journal of the Korean Institute of Interior Design(KCI), 26(6), 145-154</span>
+        </li>
+        <li>
+          A Study on Layout Characteristics of Subsidiary Welfare Facilities at Apartment Complexes in New Towns - Focused on Apartment Complexes in Second Phase New Towns -
+          <br><span class="authors">Ja Young Moon, Yu Ri Jung, Yeon Sook Hwang(2017), Journal of the Korean Institute of Interior Design(KCI), 26(3), 81-90</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+
+      <div class="pub-category">
+        [2010~2016]
+        <hr class="divider" />
+      </div>
+      <ul class="pub-list toggle-container">
+        <li>
+          A Study on the Remodeling of the Co-housing for Seniors Living Alone - Focused on the `Carnation House` in Gyeounggi-do Area -
+          <br><span class="authors">Ja Young Moon, Yeon Sook Hwang(2016), Journal of the Korean Institute of Interior Design(KCI), 25(5), 31-41</span>
+        </li>
+        <li>
+          A Study on Usage and Space Planning in Subject Specialization of University Library for Major
+          <br><span class="authors">A Ri Chang, Yeon Sook Hwang(2015), Journal of the Korean Institute of Interior Design(KCI), 24(4), 143-151</span>
+        </li>
+        <li>
+          Analysis of Furniture Planning and Layout Type in Subject Specialization of University Library
+          <br><span class="authors">A Ri Chang, Yeon Sook Hwang(2015), Journal of the Korean Institute of Interior Design(KCI), 24(2), 180-188</span>
+        </li>
+        <li>
+          A Study on the Area Planning of Data Area and Reading Area and User Satisfaction in Subject Specialization of University Libraries
+          <br><span class="authors">A Ri Chang, Yeon Sook Hwang(2014), Journal of the Korean Institute of Interior Design(KCI), 23(5), 157-164</span>
+        </li>
+        <li>
+          Planning of Apartment Community Facilities according to EEG Analysis by School Age of Youth Emotional Words
+          <br><span class="authors">Yeon Sook Hwang, Ju Yeon Kim, A Ri Chang, Eun Young Lim, Hyun Won Jung(2014), Journal of the Korean Institute of Interior Design(KCI), 23(4), 181-189</span>
+        </li>
+        <li>
+          An Analysis of Youth EEG based on the Emotional Color Scheme Images by Different Space of Community Facilities
+          <br><span class="authors">Yeon Sook Hwang, Sun Young Kim, Ju Yeon Kim(2013), Journal of the Korean Institute of Interior Design(KCI), 22(5), 171-178</span>
+        </li>
+        <li>
+          Emotional Evaluation of Adolescents for Learning Spaces Design in Apartment Complex Community Facilities
+          <br><span class="authors">Yeon Sook Hwang, Hyun Won Jung, Yeo Rym Son(2013), Journal of the Korean Institute of Interior Design(KCI), 22(4), 113-120</span>
+        </li>
+        <li>
+          A Study on the Evaluation of Wards by Considering Women's Sensibility Characteristics
+          <br><span class="authors">Yeo Rym Son, Yeon Sook Hwang(2011), Journal of the Korea Institute of Spatial Design(KCI), 6(4), 65-75</span>
+        </li>
+        <li>
+          A Case Study on Women's Hospitals with Consideration of Women's Characteristics
+          <br><span class="authors">Yeo Rym Son, Yeon Sook Hwang(2011), Journal of the Korea Institute of Spatial Design(KCI), 6(3), 123-132</span>
+        </li>
+        <li>
+          A Study on the Planning and Design Characteristics of Public Space in Urban Silver Town
+          <br><span class="authors">Eun Young Lim, Yeon Sook Hwang(2011), Journal of the Korea Institute of Spatial Design(KCI), 5(5), 65-73</span>
+        </li>
+        <li>
+          Resident's Usage and needs for the improvement of Community Facilities in Public Rental Apartments
+          <br><span class="authors">Yeon Sook Hwang, Young Sun Yoon, Yeo Rym Son, A Ri Chang(2010), Journal of the Korean Institute of Interior Design(KCI), 19(4), 48-57</span>
+        </li>
+        <li>
+          A Study on Consciousness and Needs of Residents by Age about National Rental Apartment Community Facilities
+          <br><span class="authors">Yeon Sook Hwang, A Ri Chang(2010), Journal of the Korean Institute of Interior Design(KCI), 19(3), 145-153</span>
+        </li>
+      </ul>
+      <span class="toggle-btn" onclick="toggleList(this)">Show More</span>
+    </section>
+  </main>
+
+<!-- Back to top button -->
+<button id="backToTop" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+    <!-- 세로줄 -->
+    <path d="M12 19V5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 윗쪽 갈매기(>^) -->
+    <polyline points="6 11 12 5 18 11" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+  <script src="script.js"></script>
+
+  <footer class="site-footer">
+  <p>© 2025 Human & Environment Design Lab. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

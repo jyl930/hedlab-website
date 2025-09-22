@@ -927,61 +927,78 @@ h1.lab-name {
   text-align:left;
 }
 
-/* ─────────────────────────
-   Featured Professor: 2-Column Card
-   ───────────────────────── */
-.member-card{ width:100%; }
+/* ── Professor card: clean version ───────────────── */
+img { max-width: 100%; height: auto; } /* 전역: 비율 유지 */
 
-.professor-card{
-  display:grid;
-  grid-template-columns: var(--prof-photo-w) 1fr;  /* 왼쪽 사진 / 오른쪽 텍스트 */
-  gap:24px;
-  width:100%;
-  padding:20px;
-  border:1px solid #eee;
-  border-radius:16px;
-  background:#fff;
-  box-shadow:0 10px 28px rgba(0,0,0,.05);
-  align-items:start;           /* 텍스트 상단 정렬 */
+.member-card.professor-card{
+  display: grid;
+  grid-template-columns: max-content 1fr;  /* 이미지 폭만큼 + 본문 */
+  column-gap: 28px;
+  align-items: flex-start;                 /* 윗쪽 정렬 */
+  width: 100%;
+  padding: 24px 24px;                      /* 좌우 여백 절제 */
+  border: 1px solid #eee;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.05);
 }
 
-/* 전역: 이미지 비율 깨짐 방지 */
-img { max-width:100%; height:auto; }
-
-.professor-photo{
-  width:220px; height:280px;     /* 프레임 고정 */
-  object-fit:contain;            /* 비율 유지 + 여백 허용 */
-  background:#fff;               /* 주변 여백 색상 */
-  border-radius:12px;
-  box-shadow:0 8px 20px #0001;
+.member-card.professor-card .professor-photo{
+  margin: 0;                               /* figure 기본 마진 제거 */
+  padding: 0;
 }
 
-
-.professor-body{
-  min-width:0;                 /* 긴 텍스트 줄바꿈 안전장치 */
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+/* 이미지 자체에만 사이즈/스타일 */
+.member-card.professor-card .professor-photo img{
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 220px;                        /* 필요시 값만 조정 */
+  max-height: 280px;
+  object-fit: contain;                     /* 레터박스 허용 */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
 }
 
-.professor-card .member-name{
-  font-size:18px;              /* 필요 시 20px로 ↑ */
-  font-weight:800;
-  margin:0 0 4px;
+.member-card.professor-card .professor-body{
+  min-width: 0;                            /* 긴 텍스트 안전 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Lab Director 뱃지 */
+.member-card.professor-card .member-name{
+  margin: 0 0 8px 0;                       /* 상단 맞춤 */
+  line-height: 1.2;
+  font-weight: 800;
+  font-size: 18px;                         /* 원하면 20~22px로 ↑ */
+}
+
+/* Lab Director 뱃지 (그대로 사용) */
 .badge{
-  display:inline-block;
-  margin-left:8px;
-  padding:2px 8px;
-  font-size:12px;
-  font-weight:700;
-  border-radius:999px;
-  color:#fff;
-  background:#111;             /* 연구실 메인 컬러로 교체 가능 */
-  vertical-align:middle;
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  color: #fff;
+  background: #111;
+  vertical-align: middle;
 }
+
+/* 모바일: 한 열로 스택 */
+@media (max-width: 768px){
+  .member-card.professor-card{
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+    padding: 20px;
+  }
+  .member-card.professor-card .professor-photo img{
+    max-width: 180px;
+  }
+}
+
 
 /* 연구 관심사와의 간격 */
 .current-positions + .member-info{ margin-top: -6px; }

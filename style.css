@@ -949,14 +949,13 @@ h1.lab-name {
 img { max-width:100%; height:auto; }
 
 .professor-photo{
-  display:block;
-  width:auto;            /* 강제폭/높이 제거 */
-  height:auto;
-  max-width:220px;       /* 카드 안에서 너무 커지지 않게 */
-  max-height:280px;
+  width:220px; height:280px;     /* 프레임 고정 */
+  object-fit:contain;            /* 비율 유지 + 여백 허용 */
+  background:#fff;               /* 주변 여백 색상 */
   border-radius:12px;
   box-shadow:0 8px 20px #0001;
 }
+
 
 .professor-body{
   min-width:0;                 /* 긴 텍스트 줄바꿈 안전장치 */

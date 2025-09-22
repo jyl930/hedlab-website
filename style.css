@@ -1437,3 +1437,10 @@ main.publications-main .pub-sidebar [class*="text-center"] {
   .type-area{ font-size: clamp(13px, 4.2vw, 16px); }
   .search-pill{ padding-top: 16px; padding-bottom: 16px; }
 }
+
+/* index(home) 페이지만 적용 */
+body.home .type-line{
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}

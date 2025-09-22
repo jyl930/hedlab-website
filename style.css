@@ -945,13 +945,17 @@ h1.lab-name {
   align-items:start;           /* 텍스트 상단 정렬 */
 }
 
-.professor-photo{ margin:0; width:100%; }
-.professor-photo img{
-  width:100%;
-  aspect-ratio:3 / 4;          /* 세로 인물 비율 */
-  object-fit:cover;
+/* 전역: 이미지 비율 깨짐 방지 */
+img { max-width:100%; height:auto; }
+
+.professor-photo{
+  display:block;
+  width:auto;            /* 강제폭/높이 제거 */
+  height:auto;
+  max-width:220px;       /* 카드 안에서 너무 커지지 않게 */
+  max-height:280px;
   border-radius:12px;
-  background:#f3f3f3;
+  box-shadow:0 8px 20px #0001;
 }
 
 .professor-body{

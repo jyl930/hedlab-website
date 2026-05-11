@@ -1469,6 +1469,10 @@ body.home .type-line{
 .member-name-link {
   cursor: pointer;
   color: inherit;
+  text-decoration: none;
+}
+.member-name-link:hover {
+  text-decoration: underline;
 }
 
 /* ── 모달 오버레이 ── */

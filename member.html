@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="assets/icons/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="style.css"> <!-- 통합된 css -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -30,7 +30,7 @@
   </header>
 
   <main class="member-main">
-    
+
     <!-- 교수님 -->
     <div class="member-card professor-card">
       <figure class="professor-photo">
@@ -38,19 +38,15 @@
             alt="Prof. Hwang Yeon Sook"
             width="520" height="693" loading="lazy">
       </figure>
-
       <div class="professor-body">
         <h3 class="member-name">
           황연숙 | Hwang Yeon Sook
           <span class="badge">Lab Director</span>
         </h3>
-
         <div class="current-positions">
           <p>Professor, Department of Interior Architecture Design, Hanyang University</p>
           <p>Dean, College of Human Ecology, Hanyang University</p>
         </div>
-
-
         <div class="cv">
           <div class="cv-section">
             <h4 class="cv-title">Experience</h4>
@@ -60,7 +56,6 @@
               <li>Vice President, Korean Housing Association</li>
             </ul>
           </div>
-
           <div class="cv-section">
             <h4 class="cv-title">Education</h4>
             <ul class="cv-list">
@@ -69,7 +64,6 @@
               <li>B.S., Housing and Interior Design — Yonsei University, Seoul, Korea</li>
             </ul>
           </div>
-
           <div class="cv-section">
             <h4 class="cv-title">Awards</h4>
             <ul class="cv-list">
@@ -82,9 +76,6 @@
         </div>
       </div>
     </div>
-
-
-
 
     <!-- 박사 수료 및 졸업 -->
     <section class="member-section">
@@ -102,24 +93,27 @@
         <div class="member-card">
           <h3 class="member-name">문자영 | Ja Young Moon</h3>
         </div>
-
       </div>
     </section>
-    
+
     <!-- 박사 과정 -->
     <section class="member-section">
       <h2 class="member-role">Ph.D. Students</h2>
       <div class="member-list">
+
         <div class="member-card">
           <h3 class="member-name">
-            김유진 | Yu Jin Kim
+            <span class="member-name-link" onclick="openModal('김유진')">김유진 | Yu Jin Kim</span>
             <span class="badge">Lab Leader</span>
           </h3>
           <p class="member-info"><strong>Research Interests:</strong> Utilization of School Facilities, Regeneration Spaces, Local Community, Sustainable Design</p>
           <p class="member-email"><strong>Email:</strong> yujin990912@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">이주영 | Ju Young Lee</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('이주영')">이주영 | Ju Young Lee</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Public Spaces, Inclusive Design, Digital Wellbeing, Affordance</p>
           <p class="member-email"><strong>Email:</strong> jyl930@hanyang.ac.kr</p>
         </div>
@@ -131,46 +125,71 @@
     <section class="member-section">
       <h2 class="member-role">Master's Students</h2>
       <div class="member-list">
+
         <div class="member-card">
-          <h3 class="member-name">남승희 | Seung Hee Nam</h3>
-          <p class="member-info"><strong>Research Interests:</strong> Idle Spaces,  Cultural and Artistic Spaces, Publicness Studies, Publicness Design, Cultural Facility</p>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('남승희')">남승희 | Seung Hee Nam</span>
+          </h3>
+          <p class="member-info"><strong>Research Interests:</strong> Idle Spaces, Cultural and Artistic Spaces, Publicness Studies, Publicness Design, Cultural Facility</p>
           <p class="member-email"><strong>Email:</strong> tmdgmlalsgml@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">류혜수 | Hea Soo Ryu</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('류혜수')">류혜수 | Hea Soo Ryu</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Public Spaces, Sustainability Studies, Material Circularity</p>
           <p class="member-email"><strong>Email:</strong> otbr98@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">신은아 | Eun A Shin</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('신은아')">신은아 | Eun A Shin</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Public Spaces, Sustainable Design, User-Based Spatial Design, Biophilic Design</p>
           <p class="member-email"><strong>Email:</strong> eunaei27@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">최주하 | Ju Ha Choi</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('최주하')">최주하 | Ju Ha Choi</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Human-Space Interaction, User-Based Spatial Design, Experience-Type Exhibition Space</p>
           <p class="member-email"><strong>Email:</strong> qoqo000@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">민서영 | Seo Young Min</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('민서영')">민서영 | Seo Young Min</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Biophilic Design, Sustainable Design, User-Based Spatial Design, Public Spaces</p>
           <p class="member-email"><strong>Email:</strong> minsy916@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">오다혜 | Da Hye Oh</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('오다혜')">오다혜 | Da Hye Oh</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Local Community, Public Space, Regeneration Space, Sustainable Design</p>
           <p class="member-email"><strong>Email:</strong> dahye285@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">이민경 | Min Kyung Lee</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('이민경')">이민경 | Min Kyung Lee</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> Public Spaces, Space Regeneration, User-Centric Design, Universal Design</p>
           <p class="member-email"><strong>Email:</strong> minkyung0401@hanyang.ac.kr</p>
         </div>
+
         <div class="member-card">
-          <h3 class="member-name">홍준수 | June Soo Hong</h3>
+          <h3 class="member-name">
+            <span class="member-name-link" onclick="openModal('홍준수')">홍준수 | June Soo Hong</span>
+          </h3>
           <p class="member-info"><strong>Research Interests:</strong> User-Centered Design, Experiential Design, Restorative Environments, Community-Based Spaces</p>
           <p class="member-email"><strong>Email:</strong> dejusoo@hanyang.ac.kr</p>
         </div>
+
       </div>
     </section>
 
@@ -183,13 +202,41 @@
       <polyline points="6 11 12 5 18 11" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
-  
-  <!-- 통합된 script.js -->
+
+  <!-- 멤버 실적 모달 -->
+  <div class="hed-modal-overlay" id="hedOverlay" onclick="handleOverlayClick(event)">
+    <div class="hed-modal" id="hedModal">
+      <div class="hed-modal-head">
+        <div class="hed-modal-head-info">
+          <h2 id="mName">—</h2>
+          <p id="mRole">연구원</p>
+        </div>
+        <button class="hed-modal-close" onclick="closeModal()" aria-label="닫기">✕</button>
+      </div>
+      <div class="hed-modal-tabs">
+        <button class="hed-modal-tab active" onclick="hedSwitchTab('pubs', this)">
+          Publications <span class="hed-tab-cnt" id="cntPubs">0</span>
+        </button>
+        <button class="hed-modal-tab" onclick="hedSwitchTab('acts', this)">
+          Activities <span class="hed-tab-cnt" id="cntActs">0</span>
+        </button>
+        <button class="hed-modal-tab" onclick="hedSwitchTab('achv', this)">
+          Achievements <span class="hed-tab-cnt" id="cntAchv">0</span>
+        </button>
+      </div>
+      <div class="hed-modal-body">
+        <div class="hed-panel active" id="panel-pubs"></div>
+        <div class="hed-panel"        id="panel-acts"></div>
+        <div class="hed-panel"        id="panel-achv"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 
   <footer class="site-footer">
-  <p>© 2025 Human & Environment Design Lab. All rights reserved.</p>
-</footer>
+    <p>© 2026 Human & Environment Design Lab. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>

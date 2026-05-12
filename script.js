@@ -488,23 +488,18 @@ const PERSONAL_ACTS = [
   // ── 김유진 ──
   { title: "Daily life in the sea",
     authors: "Yujin Kim, Sumin Kim, Suah Kim, Soongak Jang",
-    year: 2022, venue: "2022 Tokyo life style week, Tokyo, Japan" },
+    year: 2022, venue: "2022 Tokyo life style week, Tokyo, Japan",
+    _for: ["yujinkim"] },
   { title: "RE-TUNE : ON, PLAY, PAUSE, STOP, OFF",
     authors: "Yujin Kim, Juyoung Lee, Youlim Hwang, Namhoon Jeong, Soongak Jang",
-    year: 2025, venue: "2025 Stockholm Furniture Fair, Stockholm, Sweden" },
+    year: 2025, venue: "2025 Stockholm Furniture Fair, Stockholm, Sweden",
+    _for: ["yujinkim", "juyounglee"] },
 
-  // ── 이주영 ──
-  { title: "RE-TUNE : ON, PLAY, PAUSE, STOP, OFF",
-    authors: "Juyoung Lee, Yujin Kim, Youlim Hwang, Namhoon Jeong, Soongak Jang",
-    year: 2025, venue: "2025 Stockholm Furniture Fair, Stockholm, Sweden" },
+  // ── 이주영 단독 ──
   { title: "Shell to Shell",
     authors: "Juyoung Lee, Euna Shin, Soongak Jang",
-    year: 2026, venue: "GREEN MATERIAL Tokyo 2026, Tokyo, Japan" },
-
-  // ── 신은아 ──
-  { title: "Shell to Shell",
-    authors: "Euna Shin, Juyoung Lee, Soongak Jang",
-    year: 2026, venue: "GREEN MATERIAL Tokyo 2026, Tokyo, Japan" },
+    year: 2026, venue: "GREEN MATERIAL Tokyo 2026, Tokyo, Japan",
+    _for: ["juyounglee", "eunashin"] },
 ];
 
 const PERSONAL_ACHV = [
@@ -728,7 +723,14 @@ async function openModal(korName) {
   ];
   const acts = [
     ...allActs.filter(a => hedMatch(a.authors, korName)),
-    ...PERSONAL_ACTS.filter(a => hedMatch(a.authors, korName)),
+    ...PERSONAL_ACTS.filter(a => {
+      if (a._for) {
+        const member = HED_MEMBERS[korName];
+        if (!member) return false;
+        return member.aliases.some(alias => a._for.includes(hedNorm(alias)));
+      }
+      return hedMatch(a.authors, korName);
+    }),
   ];
   const achv = [
     ...allAchv.filter(a => hedMatchKor(a.authors, korName)),

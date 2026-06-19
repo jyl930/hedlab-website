@@ -36,7 +36,7 @@ function annotatePublications(section){
   if(!section) return;
   const categories = section.querySelectorAll('.pub-category');
   categories.forEach(cat => {
-    const label = (cat.textContent || '').replace(/\[|\]/g,'').trim(); // "[XXX]" → "XXX"
+    const label = (cat.textContent || '').replace(/\[|\]/g,'').trim();
     const list = cat.nextElementSibling;
     if(!list || !list.classList.contains('pub-list')) return;
 
@@ -44,7 +44,7 @@ function annotatePublications(section){
     list.querySelectorAll('li').forEach(li => {
       li.dataset.category = label;
       const authorTxt = li.querySelector('.authors')?.textContent || '';
-      const m = authorTxt.match(/\((20\d{2}|19\d{2})\)/);  // (2025) 또는 (2013)
+      const m = authorTxt.match(/\((20\d{2}|19\d{2})\)/);
       if(m) li.dataset.year = m[1];
     });
   });
@@ -52,12 +52,9 @@ function annotatePublications(section){
 
 /* =============================
    Publications: 칩 필터 모듈 (Category + Year)
-   - Achievements와 동일 칩 UX
-   - Past 탭은 카테고리칩 자동 숨김
-   - ★ Show More/Less와 충돌 방지: 필터 중엔 강제 펼침 + 토글 버튼 숨김
 ============================= */
 (function(){
-  const root = document.querySelector('.publicitions-main, .publications-main'); // 오타 대비
+  const root = document.querySelector('.publicitions-main, .publications-main');
   if (!root) return;
 
   let currentCat  = 'all';
@@ -67,7 +64,6 @@ function annotatePublications(section){
     return document.querySelector('.publications-section.active');
   }
 
-  // 칩 컨테이너 보장 (없으면 생성)
   function ensureChipContainers(){
     let catRow = root.querySelector('#pubCatChips');
     let yearRow = root.querySelector('#pubYearChips');
@@ -78,10 +74,10 @@ function annotatePublications(section){
       yearGroup = yearRow.closest('.filter-group');
       return { catRow, yearRow, catGroup, yearGroup };
     }
+
     const sidebar = root.querySelector('.pub-sidebar') || root;
     const afterNode = sidebar.querySelector('.tab-menu') || sidebar.firstElementChild;
 
-      // ★ 제목 생성 (없으면)
     let heading = sidebar.querySelector('#pubFiltersTitle');
     if (!heading) {
       heading = document.createElement('h2');
@@ -93,31 +89,35 @@ function annotatePublications(section){
     filters.className = 'pub-filters';
     filters.setAttribute('aria-label', 'Filter publications');
 
-    // Category
     catGroup = document.createElement('div');
     catGroup.className = 'filter-group';
     catGroup.setAttribute('role', 'group');
     catGroup.setAttribute('aria-label', 'Category');
+
     const catLabel = document.createElement('span');
     catLabel.className = 'filter-label';
     catLabel.textContent = 'Category';
+
     catRow = document.createElement('div');
     catRow.className = 'chip-row';
     catRow.id = 'pubCatChips';
+
     catGroup.appendChild(catLabel);
     catGroup.appendChild(catRow);
 
-    // Year
     yearGroup = document.createElement('div');
     yearGroup.className = 'filter-group';
     yearGroup.setAttribute('role', 'group');
     yearGroup.setAttribute('aria-label', 'Year');
+
     const yearLabel = document.createElement('span');
     yearLabel.className = 'filter-label';
     yearLabel.textContent = 'Year';
+
     yearRow = document.createElement('div');
     yearRow.className = 'chip-row';
     yearRow.id = 'pubYearChips';
+
     yearGroup.appendChild(yearLabel);
     yearGroup.appendChild(yearRow);
 
@@ -129,6 +129,7 @@ function annotatePublications(section){
     } else {
       sidebar.prepend(filters);
     }
+
     return { catRow, yearRow, catGroup, yearGroup };
   }
 
@@ -153,32 +154,27 @@ function annotatePublications(section){
     return currentCat !== 'all' || currentYear !== 'all';
   }
 
-  // 필터 중 토글 버튼/리스트 상태 동기화
   function syncToggleUI(section){
     section.querySelectorAll('.toggle-container').forEach(list=>{
-      // 리스트 바로 다음이 토글 버튼(span.toggle-btn) 구조를 가정
       const btn = list.nextElementSibling && list.nextElementSibling.classList?.contains('toggle-btn')
         ? list.nextElementSibling
         : null;
 
       if (isFiltered()) {
-        // 필터 켜짐: 리스트를 강제 펼치고, 토글 버튼은 숨김
         list.classList.add('expanded');
         if (btn) {
           btn.dataset.disabled = 'true';
           btn.style.display = 'none';
         }
       } else {
-        // 필터 꺼짐: 강제 펼침 해제, 토글 버튼 다시 표시
         list.classList.remove('expanded');
         if (btn) {
           btn.dataset.disabled = 'false';
           btn.style.display = '';
-          // 버튼 텍스트는 기존 상태 유지 (사용자가 다시 토글)
         }
       }
     });
-    // 루트에 상태 클래스(선택) — CSS에서 쓰고 있다면 호환
+
     root.classList.toggle('filter-active', isFiltered());
   }
 
@@ -189,18 +185,17 @@ function annotatePublications(section){
 
     const { catRow, yearRow, catGroup, yearGroup } = ensureChipContainers();
 
-    // 세트 수집
     const years = new Set();
     const cats  = new Set();
 
     section.querySelectorAll('.pub-list li').forEach(li=>{
       if(li.dataset.year) years.add(li.dataset.year);
     });
+
     section.querySelectorAll('.pub-list').forEach(list=>{
       if(list.dataset.category) cats.add(list.dataset.category.trim());
     });
 
-    // Year chips
     yearRow.innerHTML = '';
     yearRow.appendChild(makeChip('전체', 'all', 'data-year', currentYear==='all'));
     [...years].sort((a,b)=>b-a).forEach(y=>{
@@ -208,9 +203,9 @@ function annotatePublications(section){
     });
     yearGroup.style.display = yearRow.children.length ? '' : 'none';
 
-    // Category chips (숫자연도처럼 보이는 레이블 제거 → Past 보호)
     const catArr = [...cats].filter(c => !/^\d{4}/.test(c));
     catRow.innerHTML = '';
+
     if (catArr.length === 0) {
       catGroup.style.display = 'none';
       currentCat = 'all';
@@ -222,7 +217,6 @@ function annotatePublications(section){
       });
     }
 
-    // 이벤트 위임(중복 방지)
     if (!catRow._bound) {
       catRow.addEventListener('click', (e)=>{
         const btn = e.target.closest('.chip');
@@ -233,6 +227,7 @@ function annotatePublications(section){
       });
       catRow._bound = true;
     }
+
     if (!yearRow._bound) {
       yearRow.addEventListener('click', (e)=>{
         const btn = e.target.closest('.chip');
@@ -255,7 +250,6 @@ function annotatePublications(section){
     const section = activeSection();
     if(!section) return;
 
-    // 항목 필터
     section.querySelectorAll('.pub-list li').forEach(li=>{
       let show = true;
       if(currentYear !== 'all' && li.dataset.year !== currentYear) show = false;
@@ -263,36 +257,34 @@ function annotatePublications(section){
       showEl(li, show);
     });
 
-    // 비어있는 카테고리 블록 숨김 + 토글 버튼 동기화
     section.querySelectorAll('.pub-list').forEach(list=>{
       const anyVisible = [...list.querySelectorAll('li')].some(li => li.style.display !== 'none' && !li.classList.contains('hidden'));
       showEl(list, anyVisible);
+
       const header = list.previousElementSibling;
       if(header && header.classList.contains('pub-category')){
         showEl(header, anyVisible);
       }
+
       const btn = list.nextElementSibling && list.nextElementSibling.classList?.contains('toggle-btn')
         ? list.nextElementSibling
         : null;
-      if (btn) btn.style.display = isFiltered() && anyVisible ? 'none' : ''; // 필터 중엔 버튼 숨김
+
+      if (btn) btn.style.display = isFiltered() && anyVisible ? 'none' : '';
     });
 
-    // 토글 상태 최종 동기화
     syncToggleUI(section);
   }
 
   function rebuild(){
-    // 필터 초기화
     currentCat = 'all';
     currentYear = 'all';
     buildChips();
-    applyFilter(); // 초기엔 필터 off 상태 → 토글 정상 작동
+    applyFilter();
   }
 
-  // 초기 진입
   document.addEventListener('DOMContentLoaded', rebuild);
 
-  // 외부(탭 전환)에서 호출 가능하도록 노출
   window._pubChipFilter = { rebuild };
 })();
 
@@ -300,11 +292,9 @@ function annotatePublications(section){
 /* Publications 리스트 토글 */
 /* ============================= */
 function toggleList(button) {
-  // 필터가 켜져 있으면 토글 무시 (강제 펼침 유지)
   const main = document.querySelector('.publications-main');
   if (main && main.classList.contains('filter-active')) return;
 
-  // 버튼이 숨김/비활성 상태면 무시
   if (button.dataset.disabled === 'true' || button.style.display === 'none') return;
 
   const list = button.previousElementSibling;
@@ -316,8 +306,6 @@ function toggleList(button) {
 /* ============================= */
 /* Activities 모달 */
 /* ============================= */
-
-// (1) 제목 클릭 → 상세 모달
 function openDetailModal(el) {
   const modal = document.getElementById("detailModal");
   document.getElementById("detailTitle").textContent = el.getAttribute("data-title") || "";
@@ -326,7 +314,6 @@ function openDetailModal(el) {
   modal.style.display = "flex";
 }
 
-// (2) 이미지 클릭 → 단순 이미지 모달
 function openImgModal(img) {
   const modal = document.getElementById("imgModal");
   document.getElementById("modalImg").src = img.src;
@@ -371,23 +358,23 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ============================= */
 const backToTopBtn = document.getElementById("backToTop");
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 400) backToTopBtn.style.display = "flex";
-  else backToTopBtn.style.display = "none";
-});
+if (backToTopBtn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTopBtn.style.display = "flex";
+    else backToTopBtn.style.display = "none";
+  });
 
-backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 /* =============================
    Achievements (Awards) 필터
-   - 칩(data-type, data-year)로 필터
-   - 비어 있는 year-group 자동 숨김
 ============================= */
 (function(){
   const root = document.querySelector('.achievements-main');
-  if (!root) return; // 이 페이지가 아니면 종료
+  if (!root) return;
 
   let currentType = 'all';
   let currentYear = 'all';
@@ -405,7 +392,6 @@ backToTopBtn.addEventListener("click", () => {
   }
 
   function filterAwards(){
-    // 항목 표시/숨김
     root.querySelectorAll('.award-item').forEach(li=>{
       const ty = li.dataset.type || '';
       const yr = li.dataset.year || '';
@@ -416,7 +402,6 @@ backToTopBtn.addEventListener("click", () => {
       li.style.display = show ? '' : 'none';
     });
 
-    // 비어 있는 연도 그룹 숨김
     root.querySelectorAll('.year-group').forEach(group=>{
       const hasVisible = [...group.querySelectorAll('.award-item')].some(li => li.style.display !== 'none' && !li.classList.contains('hidden'));
       group.classList.toggle('hidden', !hasVisible);
@@ -424,7 +409,6 @@ backToTopBtn.addEventListener("click", () => {
     });
   }
 
-  // 이벤트 바인딩
   typeChips.forEach(btn=>{
     btn.addEventListener('click', ()=>{
       currentType = btn.dataset.type || 'all';
@@ -441,10 +425,12 @@ backToTopBtn.addEventListener("click", () => {
     });
   });
 
-  // 초기 상태(aria-pressed="true"를 기본값으로 읽음)
   const initType = [...typeChips].find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.type || 'all';
   const initYear = [...yearChips].find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.year || 'all';
-  currentType = initType; currentYear = initYear;
+
+  currentType = initType;
+  currentYear = initYear;
+
   setPressed(typeChips, 'data-type', currentType);
   setPressed(yearChips, 'data-year', currentYear);
   filterAwards();
@@ -461,18 +447,20 @@ backToTopBtn.addEventListener("click", () => {
 /* ── 멤버 정의
    aliases: 각 HTML 파일 authors 텍스트에 실제로 등장하는
    영문명 표기만 등록합니다. (member.html 영문명 기준)
-   새 표기가 생기면 aliases 배열에만 추가하세요.          ── */
+   새 표기가 생기면 aliases 배열에만 추가하세요.
+   period: 개인 카드 상단에 표시되는 연구실 소속 기간입니다.
+   ── */
 const HED_MEMBERS = {
-  "김유진": { en: "Yu Jin Kim",     role: "Ph.D. Student · Lab Leader", aliases: ["yu jin kim",    "yujin kim"]    },
-  "이주영": { en: "Ju Young Lee",   role: "Ph.D. Student",               aliases: ["ju young lee",  "juyoung lee"]  },
-  "남승희": { en: "Seung Hee Nam",  role: "Master's Student",            aliases: ["seung hee nam", "seunghee nam"] },
-  "류혜수": { en: "Hea Soo Ryu",    role: "Master's Student",            aliases: ["hea soo ryu",   "heasoo ryu"]   },
-  "신은아": { en: "Eun A Shin",     role: "Master's Student",            aliases: ["eun a shin",    "euna shin"]    },
-  "최주하": { en: "Ju Ha Choi",     role: "Master's Student",            aliases: ["ju ha choi",    "juha choi"]    },
-  "민서영": { en: "Seo Young Min",  role: "Master's Student",            aliases: ["seo young min", "seoyoung min"] },
-  "오다혜": { en: "Da Hye Oh",      role: "Master's Student",            aliases: ["da hye oh",     "dahye oh"]     },
-  "이민경": { en: "Min Kyung Lee",  role: "Master's Student",            aliases: ["min kyung lee", "minkyung lee"] },
-  "홍준수": { en: "June Soo Hong",  role: "Master's Student",            aliases: ["june soo hong", "junesoo hong"] },
+  "김유진": { en: "Yu Jin Kim",     role: "Ph.D. Student · Lab Leader", period: "2022.03 – Present", aliases: ["yu jin kim",    "yujin kim"]    },
+  "이주영": { en: "Ju Young Lee",   role: "Ph.D. Student",              period: "2024.03 – Present", aliases: ["ju young lee",  "juyoung lee"]  },
+  "남승희": { en: "Seung Hee Nam",  role: "Master's Student",           period: "2022.03 – Present", aliases: ["seung hee nam", "seunghee nam"] },
+  "류혜수": { en: "Hea Soo Ryu",    role: "Master's Student",           period: "2024.03 – Present", aliases: ["hea soo ryu",   "heasoo ryu"]   },
+  "신은아": { en: "Eun A Shin",     role: "Master's Student",           period: "2025.03 – Present", aliases: ["eun a shin",    "euna shin"]    },
+  "최주하": { en: "Ju Ha Choi",     role: "Master's Student",           period: "2025.09 – Present", aliases: ["ju ha choi",    "juha choi"]    },
+  "민서영": { en: "Seo Young Min",  role: "Master's Student",           period: "2026.03 – Present", aliases: ["seo young min", "seoyoung min"] },
+  "오다혜": { en: "Da Hye Oh",      role: "Master's Student",           period: "2026.03 – Present", aliases: ["da hye oh",     "dahye oh"]     },
+  "이민경": { en: "Min Kyung Lee",  role: "Master's Student",           period: "2026.03 – Present", aliases: ["min kyung lee", "minkyung lee"] },
+  "홍준수": { en: "June Soo Hong",  role: "Master's Student",           period: "2026.03 – Present", aliases: ["june soo hong", "junesoo hong"] },
 };
 
 /* =====================================================
@@ -490,12 +478,12 @@ const PERSONAL_ACTS = [
     authors: "Yujin Kim, Sumin Kim, Suah Kim, Soongak Jang",
     year: 2022, venue: "2022 Tokyo life style week, Tokyo, Japan" },
 
-  // ── 김유진, 이주영 공동 (이름 순서 통일) ──
+  // ── 김유진, 이주영 공동 ──
   { title: "RE-TUNE : ON, PLAY, PAUSE, STOP, OFF",
     authors: "Yujin Kim, Juyoung Lee, Youlim Hwang, Namhoon Jeong, Soongak Jang",
     year: 2025, venue: "2025 Stockholm Furniture Fair, Stockholm, Sweden" },
 
-  // ── 이주영, 신은아 공동 (이름 순서 통일) ──
+  // ── 이주영, 신은아 공동 ──
   { title: "Shell to Shell",
     authors: "Juyoung Lee, Euna Shin, Soongak Jang",
     year: 2026, venue: "GREEN MATERIAL Tokyo 2026, Tokyo, Japan" },
@@ -504,8 +492,6 @@ const PERSONAL_ACTS = [
 const PERSONAL_ACHV = [
   // 예: { type: "우수논문발표상", authors: "이주영", title: "제목", venue: "학회명", year: 2025 },
 ];
-
-
 
 /* ── 정규화: 소문자 + 공백 제거 ── */
 function hedNorm(s) {
@@ -516,8 +502,10 @@ function hedNorm(s) {
 function hedMatch(authorsStr, korName) {
   const member = HED_MEMBERS[korName];
   if (!member) return false;
+
   const aliasSet = new Set(member.aliases.map(hedNorm));
-  const namePart = authorsStr.split("(")[0]; // 연도·저널 이전까지
+  const namePart = authorsStr.split("(")[0];
+
   return namePart.split(",").some(t => aliasSet.has(hedNorm(t.trim())));
 }
 
@@ -528,11 +516,14 @@ function hedMatchKor(authorsStr, korName) {
 
 /* ── HTML 파일 fetch + 파싱 캐시 ── */
 const HED_CACHE = {};
+
 async function hedFetch(path) {
   if (HED_CACHE[path]) return HED_CACHE[path];
+
   const res  = await fetch(path);
   const text = await res.text();
   const doc  = new DOMParser().parseFromString(text, "text/html");
+
   HED_CACHE[path] = doc;
   return doc;
 }
@@ -545,41 +536,42 @@ async function hedParsePubs() {
   doc.querySelectorAll(".pub-list li").forEach(li => {
     const authorEl = li.querySelector(".authors");
     if (!authorEl) return;
+
     const authors   = authorEl.textContent.trim();
     const title     = (li.querySelector("a")?.textContent || li.childNodes[0]?.textContent || "").trim();
     const yearMatch = authors.match(/\((20\d{2}|19\d{2})\)/);
     const year      = yearMatch ? parseInt(yearMatch[1]) : 0;
+
     if (title && authors) items.push({ title, authors, year });
   });
 
   return items;
 }
 
-/* ── activities.html 파싱 (conferences + exhibitions 모두) ──
-   HTML 구조가 일부 깨져 있어도 정확하게 동작하도록
-   각 li에서 DOM을 역방향으로 거슬러 올라가
-   가장 가까운 conf-category / h3 를 직접 찾는 방식 사용  ── */
+/* ── activities.html 파싱 (conferences + exhibitions 모두) ── */
 async function hedParseActs() {
   const doc   = await hedFetch("activities.html");
   const items = [];
 
-  /* li 기준으로 DOM 트리를 역방향 탐색 */
   function findPreceding(startEl, selector) {
     let el = startEl;
+
     while (el) {
-      // 현재 엘리먼트의 이전 형제부터 역방향으로
       let sib = el.previousElementSibling;
+
       while (sib) {
         if (sib.matches(selector)) return sib;
-        // 형제 내부의 마지막 매칭 요소도 확인 (중첩 구조 대비)
+
         const inner = sib.querySelector(selector);
         if (inner) return inner;
+
         sib = sib.previousElementSibling;
       }
-      // 부모로 올라가서 반복 (section, body 전까지)
+
       el = el.parentElement;
       if (!el || el.matches('section, body, html')) break;
     }
+
     return null;
   }
 
@@ -596,6 +588,7 @@ async function hedParseActs() {
 
       const title   = (titleEl.textContent || titleEl.getAttribute?.("data-title") || "").trim();
       const authors = authorEl.textContent.trim();
+
       if (!title || !authors) return;
 
       const catEl = findPreceding(li, ".conf-category");
@@ -614,7 +607,6 @@ async function hedParseActs() {
   return items;
 }
 
-
 /* ── achievements.html 파싱 ── */
 async function hedParseAchv() {
   const doc   = await hedFetch("achievements.html");
@@ -626,7 +618,9 @@ async function hedParseAchv() {
     const authEl  = item.querySelector(".authors");
     const venueEl = item.querySelector(".venue");
     const year    = parseInt(item.dataset.year) || 0;
+
     if (!authEl) return;
+
     items.push({
       type:    badgeEl?.textContent.trim() || "",
       title:   titleEl?.textContent.trim() || "",
@@ -642,14 +636,26 @@ async function hedParseAchv() {
 /* ── 연도별 그룹핑 ── */
 function hedGroupByYear(items) {
   const m = {};
-  items.forEach(it => { (m[it.year] = m[it.year] || []).push(it); });
-  return Object.keys(m).sort((a, b) => b - a).map(y => ({ year: y, items: m[y] }));
+
+  items.forEach(it => {
+    (m[it.year] = m[it.year] || []).push(it);
+  });
+
+  return Object.keys(m)
+    .sort((a, b) => b - a)
+    .map(y => ({ year: y, items: m[y] }));
 }
 
 /* ── 렌더 함수 ── */
 function hedRenderPubs(items) {
   const el = document.getElementById("panel-pubs");
-  if (!items.length) { el.innerHTML = '<p class="hed-empty">등록된 논문이 없습니다.</p>'; return; }
+  if (!el) return;
+
+  if (!items.length) {
+    el.innerHTML = '<p class="hed-empty">등록된 논문이 없습니다.</p>';
+    return;
+  }
+
   el.innerHTML = hedGroupByYear(items).map(g => `
     <div class="hed-year">${g.year}</div>
     ${g.items.map(p => `
@@ -662,7 +668,13 @@ function hedRenderPubs(items) {
 
 function hedRenderActs(items) {
   const el = document.getElementById("panel-acts");
-  if (!items.length) { el.innerHTML = '<p class="hed-empty">등록된 국제학술활동이 없습니다.</p>'; return; }
+  if (!el) return;
+
+  if (!items.length) {
+    el.innerHTML = '<p class="hed-empty">등록된 국제학술활동이 없습니다.</p>';
+    return;
+  }
+
   el.innerHTML = hedGroupByYear(items).map(g => `
     <div class="hed-year">${g.year}</div>
     ${g.items.map(a => `
@@ -676,7 +688,13 @@ function hedRenderActs(items) {
 
 function hedRenderAchv(items) {
   const el = document.getElementById("panel-achv");
-  if (!items.length) { el.innerHTML = '<p class="hed-empty">등록된 수상 실적이 없습니다.</p>'; return; }
+  if (!el) return;
+
+  if (!items.length) {
+    el.innerHTML = '<p class="hed-empty">등록된 수상 실적이 없습니다.</p>';
+    return;
+  }
+
   el.innerHTML = hedGroupByYear(items).map(g => `
     <div class="hed-year">${g.year}</div>
     ${g.items.map(a => `
@@ -691,25 +709,37 @@ function hedRenderAchv(items) {
 }
 
 /* ── 모달 열기 ── */
-async function openModal(korName) {
-  const info = HED_MEMBERS[korName] || { en: korName, role: "연구원" };
-  document.getElementById("mName").textContent = korName + " | " + info.en;
-  document.getElementById("mRole").textContent = info.role;
+async function openModal(korName, triggerEl) {
+  const info = HED_MEMBERS[korName] || { en: korName, role: "Researcher", period: "" };
 
-  // 로딩 표시
+  const role = triggerEl?.dataset.role || info.role || "Researcher";
+  const period = triggerEl?.dataset.period || info.period || "";
+  const roleText = period ? `${role} · ${period}` : role;
+
+  const mName = document.getElementById("mName");
+  const mRole = document.getElementById("mRole");
+
+  if (mName) mName.textContent = korName + " | " + info.en;
+  if (mRole) mRole.textContent = roleText;
+
   ["panel-pubs", "panel-acts", "panel-achv"].forEach(id => {
-    document.getElementById(id).innerHTML = '<p class="hed-empty">불러오는 중...</p>';
+    const panel = document.getElementById(id);
+    if (panel) panel.innerHTML = '<p class="hed-empty">불러오는 중...</p>';
   });
-  document.getElementById("hedOverlay").classList.add("open");
+
+  const overlay = document.getElementById("hedOverlay");
+  if (overlay) overlay.classList.add("open");
   document.body.style.overflow = "hidden";
 
-  // 탭 초기화
   document.querySelectorAll(".hed-modal-tab").forEach(t => t.classList.remove("active"));
   document.querySelectorAll(".hed-panel").forEach(p => p.classList.remove("active"));
-  document.querySelectorAll(".hed-modal-tab")[0].classList.add("active");
-  document.getElementById("panel-pubs").classList.add("active");
 
-  // 세 파일 동시 fetch
+  const firstTab = document.querySelectorAll(".hed-modal-tab")[0];
+  const pubsPanel = document.getElementById("panel-pubs");
+
+  if (firstTab) firstTab.classList.add("active");
+  if (pubsPanel) pubsPanel.classList.add("active");
+
   const [allPubs, allActs, allAchv] = await Promise.all([
     hedParsePubs(),
     hedParseActs(),
@@ -720,18 +750,24 @@ async function openModal(korName) {
     ...allPubs.filter(p => hedMatch(p.authors, korName)),
     ...PERSONAL_PUBS.filter(p => hedMatch(p.authors, korName)),
   ];
+
   const acts = [
     ...allActs.filter(a => hedMatch(a.authors, korName)),
     ...PERSONAL_ACTS.filter(a => hedMatch(a.authors, korName)),
   ];
+
   const achv = [
     ...allAchv.filter(a => hedMatchKor(a.authors, korName)),
     ...PERSONAL_ACHV.filter(a => hedMatchKor(a.authors, korName)),
   ];
 
-  document.getElementById("cntPubs").textContent = pubs.length;
-  document.getElementById("cntActs").textContent = acts.length;
-  document.getElementById("cntAchv").textContent = achv.length;
+  const cntPubs = document.getElementById("cntPubs");
+  const cntActs = document.getElementById("cntActs");
+  const cntAchv = document.getElementById("cntAchv");
+
+  if (cntPubs) cntPubs.textContent = pubs.length;
+  if (cntActs) cntActs.textContent = acts.length;
+  if (cntAchv) cntAchv.textContent = achv.length;
 
   hedRenderPubs(pubs);
   hedRenderActs(acts);
@@ -739,15 +775,19 @@ async function openModal(korName) {
 }
 
 /* ── 모달 닫기
-   id 있으면 → activities/img 모달 (기존 동작 유지)
-   id 없으면 → 멤버 모달                              ── */
+   id 있으면 → activities/img 모달
+   id 없으면 → 멤버 모달
+── */
 function closeModal(id) {
   if (id) {
     const modal = document.getElementById(id);
     if (modal) modal.style.display = "none";
     return;
   }
-  document.getElementById("hedOverlay").classList.remove("open");
+
+  const overlay = document.getElementById("hedOverlay");
+  if (overlay) overlay.classList.remove("open");
+
   document.body.style.overflow = "";
 }
 
@@ -755,12 +795,15 @@ function handleOverlayClick(e) {
   if (e.target === document.getElementById("hedOverlay")) closeModal();
 }
 
-/* ── 모달 탭 전환 (기존 switchTab과 이름 구분) ── */
+/* ── 모달 탭 전환 ── */
 function hedSwitchTab(key, btn) {
   document.querySelectorAll(".hed-modal-tab").forEach(t => t.classList.remove("active"));
   document.querySelectorAll(".hed-panel").forEach(p => p.classList.remove("active"));
+
   btn.classList.add("active");
-  document.getElementById("panel-" + key).classList.add("active");
+
+  const panel = document.getElementById("panel-" + key);
+  if (panel) panel.classList.add("active");
 }
 
 /* ── ESC 닫기 ── */

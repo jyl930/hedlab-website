@@ -348,7 +348,7 @@ h1.lab-name {
   margin-bottom: 8px;
 }
 
-.divider {
+hr.divider {
   border: none;
   border-top: 1px solid #ddd;
   margin: 8px 0 16px;

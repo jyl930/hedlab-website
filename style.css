@@ -2314,3 +2314,35 @@ body.home .type-line{
     text-decoration-color: #000;
   }
 }
+
+/* =====================================================
+   MEMBER MODAL MOBILE TAB SCROLL FIX
+   Publications / Activities / Achievements 탭 잘림 방지
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .hed-modal-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    width: 100%;
+    max-width: 100%;
+
+    gap: 18px;
+    padding-bottom: 8px;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .hed-modal-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hed-modal-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}

@@ -2348,3 +2348,70 @@ body.home .type-line{
     white-space: nowrap;
   }
 }
+
+/* =====================================================
+   SUBPAGE HEADER SCROLL COLOR CHANGE — PC + MOBILE
+   스크롤 시 헤더 검정 배경 / 흰 글씨 전환
+   ===================================================== */
+
+/* 기본 전환 효과 */
+.subpage-header {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* 스크롤 후 헤더 */
+.subpage-header.scrolled {
+  background: #000;
+  color: #fff;
+  border-bottom-color: #000;
+  box-shadow: none;
+}
+
+/* 로고 텍스트 */
+.subpage-header.scrolled .lab-name a {
+  color: #fff;
+}
+
+/* PC 메뉴 텍스트 */
+.subpage-header.scrolled .nav-menu li a {
+  color: #fff;
+}
+
+/* PC active 메뉴 */
+.subpage-header.scrolled .nav-menu li a.active {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+/* hover도 흰색 유지 */
+.subpage-header.scrolled .nav-menu li a:hover {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+/* 모바일 HED Lab 가상 텍스트 */
+@media (max-width: 768px) {
+  .subpage-header.scrolled .lab-name a::after,
+  .subpage-header.scrolled .nav-menu::before {
+    color: #fff;
+  }
+
+  .subpage-header.scrolled.menu-open .nav-menu ul {
+    background: #000;
+    border-top-color: #333;
+    border-bottom-color: #333;
+  }
+
+  .subpage-header.scrolled.menu-open .nav-menu li a {
+    color: #aaa;
+  }
+
+  .subpage-header.scrolled.menu-open .nav-menu li a.active {
+    color: #fff;
+    text-decoration-color: #fff;
+  }
+}

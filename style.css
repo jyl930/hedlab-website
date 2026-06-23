@@ -2229,3 +2229,88 @@ body.home .type-line{
     padding-right: 14px;
   }
 }
+
+
+/* =====================================================
+   MOBILE HEADER SCROLL COLOR CHANGE
+   스크롤 시 MENU + / HED Lab 상단바 색상 반전
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  /* 기본 상태: 맨 위 */
+  .subpage-header {
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #eee;
+    box-shadow: none;
+
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .subpage-header .lab-name a::after,
+  .subpage-header .nav-menu::before {
+    color: #000;
+
+    transition:
+      color 0.35s ease,
+      opacity 0.35s ease;
+  }
+
+  /* 스크롤 내려간 상태 */
+  .subpage-header.scrolled {
+    background: #000;
+    color: #fff;
+    border-bottom: 1px solid #000;
+    box-shadow: none;
+  }
+
+  .subpage-header.scrolled .lab-name a::after,
+  .subpage-header.scrolled .nav-menu::before {
+    color: #fff;
+  }
+
+  /* 메뉴를 펼쳤을 때도 검정 배경 유지 */
+  .subpage-header.scrolled.menu-open {
+    background: #000;
+    color: #fff;
+  }
+
+  .subpage-header.scrolled.menu-open .nav-menu ul {
+    background: #000;
+    border-top: 1px solid #333;
+  }
+
+  .subpage-header.scrolled.menu-open .nav-menu li a {
+    color: #aaa;
+  }
+
+  .subpage-header.scrolled.menu-open .nav-menu li a.active {
+    color: #fff;
+    text-decoration-color: #fff;
+  }
+
+  /* 맨 위에서 메뉴 열렸을 때는 기존처럼 흰색 */
+  .subpage-header.menu-open:not(.scrolled) {
+    background: #fff;
+    color: #000;
+  }
+
+  .subpage-header.menu-open:not(.scrolled) .nav-menu ul {
+    background: #fff;
+    border-top: 1px solid #eee;
+  }
+
+  .subpage-header.menu-open:not(.scrolled) .nav-menu li a {
+    color: #777;
+  }
+
+  .subpage-header.menu-open:not(.scrolled) .nav-menu li a.active {
+    color: #000;
+    text-decoration-color: #000;
+  }
+}

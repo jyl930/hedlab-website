@@ -52,13 +52,15 @@ function annotatePublications(section){
 
 /* =============================
    Publications: 칩 필터 모듈 (Category + Year)
+   - Category / Year 중복 선택 가능
+   - 같은 그룹 내부는 OR, 그룹 간에는 AND
 ============================= */
 (function(){
   const root = document.querySelector('.publicitions-main, .publications-main');
   if (!root) return;
 
-  let currentCat  = 'all';
-  let currentYear = 'all';
+  let selectedCats  = new Set();
+  let selectedYears = new Set();
 
   function activeSection(){
     return document.querySelector('.publications-section.active');
@@ -142,16 +144,24 @@ function annotatePublications(section){
     return btn;
   }
 
-  function setRowActive(row, attr, value){
-    row.querySelectorAll('.chip').forEach(btn=>{
-      const isActive = btn.getAttribute(attr) === value;
-      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      btn.classList.toggle('active', isActive);
+  function updateRowActive(row, attr, selectedSet){
+    row.querySelectorAll('.chip').forEach(btn => {
+      const value = btn.getAttribute(attr);
+
+      let active;
+      if (value === 'all') {
+        active = selectedSet.size === 0;
+      } else {
+        active = selectedSet.has(value);
+      }
+
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
   }
 
   function isFiltered(){
-    return currentCat !== 'all' || currentYear !== 'all';
+    return selectedCats.size > 0 || selectedYears.size > 0;
   }
 
   function syncToggleUI(section){
@@ -181,6 +191,7 @@ function annotatePublications(section){
   function buildChips(){
     const section = activeSection();
     if(!section) return;
+
     annotatePublications(section);
 
     const { catRow, yearRow, catGroup, yearGroup } = ensureChipContainers();
@@ -197,23 +208,27 @@ function annotatePublications(section){
     });
 
     yearRow.innerHTML = '';
-    yearRow.appendChild(makeChip('전체', 'all', 'data-year', currentYear==='all'));
+    yearRow.appendChild(makeChip('전체', 'all', 'data-year', selectedYears.size === 0));
+
     [...years].sort((a,b)=>b-a).forEach(y=>{
-      yearRow.appendChild(makeChip(y, y, 'data-year', currentYear===y));
+      yearRow.appendChild(makeChip(y, y, 'data-year', selectedYears.has(y)));
     });
+
     yearGroup.style.display = yearRow.children.length ? '' : 'none';
 
     const catArr = [...cats].filter(c => !/^\d{4}/.test(c));
+
     catRow.innerHTML = '';
 
     if (catArr.length === 0) {
       catGroup.style.display = 'none';
-      currentCat = 'all';
+      selectedCats.clear();
     } else {
       catGroup.style.display = '';
-      catRow.appendChild(makeChip('전체', 'all', 'data-category', currentCat==='all'));
+      catRow.appendChild(makeChip('전체', 'all', 'data-category', selectedCats.size === 0));
+
       catArr.sort((a,b)=>a.localeCompare(b)).forEach(c=>{
-        catRow.appendChild(makeChip(c, c, 'data-category', currentCat===c));
+        catRow.appendChild(makeChip(c, c, 'data-category', selectedCats.has(c)));
       });
     }
 
@@ -221,10 +236,23 @@ function annotatePublications(section){
       catRow.addEventListener('click', (e)=>{
         const btn = e.target.closest('.chip');
         if(!btn) return;
-        currentCat = btn.getAttribute('data-category') || 'all';
-        setRowActive(catRow, 'data-category', currentCat);
+
+        const value = btn.getAttribute('data-category') || 'all';
+
+        if (value === 'all') {
+          selectedCats.clear();
+        } else {
+          if (selectedCats.has(value)) {
+            selectedCats.delete(value);
+          } else {
+            selectedCats.add(value);
+          }
+        }
+
+        updateRowActive(catRow, 'data-category', selectedCats);
         applyFilter();
       });
+
       catRow._bound = true;
     }
 
@@ -232,10 +260,23 @@ function annotatePublications(section){
       yearRow.addEventListener('click', (e)=>{
         const btn = e.target.closest('.chip');
         if(!btn) return;
-        currentYear = btn.getAttribute('data-year') || 'all';
-        setRowActive(yearRow, 'data-year', currentYear);
+
+        const value = btn.getAttribute('data-year') || 'all';
+
+        if (value === 'all') {
+          selectedYears.clear();
+        } else {
+          if (selectedYears.has(value)) {
+            selectedYears.delete(value);
+          } else {
+            selectedYears.add(value);
+          }
+        }
+
+        updateRowActive(yearRow, 'data-year', selectedYears);
         applyFilter();
       });
+
       yearRow._bound = true;
     }
   }
@@ -252,13 +293,23 @@ function annotatePublications(section){
 
     section.querySelectorAll('.pub-list li').forEach(li=>{
       let show = true;
-      if(currentYear !== 'all' && li.dataset.year !== currentYear) show = false;
-      if(currentCat  !== 'all' && li.dataset.category !== currentCat) show = false;
+
+      if (selectedYears.size > 0 && !selectedYears.has(li.dataset.year)) {
+        show = false;
+      }
+
+      if (selectedCats.size > 0 && !selectedCats.has(li.dataset.category)) {
+        show = false;
+      }
+
       showEl(li, show);
     });
 
     section.querySelectorAll('.pub-list').forEach(list=>{
-      const anyVisible = [...list.querySelectorAll('li')].some(li => li.style.display !== 'none' && !li.classList.contains('hidden'));
+      const anyVisible = [...list.querySelectorAll('li')].some(li => {
+        return li.style.display !== 'none' && !li.classList.contains('hidden');
+      });
+
       showEl(list, anyVisible);
 
       const header = list.previousElementSibling;
@@ -270,15 +321,17 @@ function annotatePublications(section){
         ? list.nextElementSibling
         : null;
 
-      if (btn) btn.style.display = isFiltered() && anyVisible ? 'none' : '';
+      if (btn) {
+        btn.style.display = isFiltered() && anyVisible ? 'none' : '';
+      }
     });
 
     syncToggleUI(section);
   }
 
   function rebuild(){
-    currentCat = 'all';
-    currentYear = 'all';
+    selectedCats.clear();
+    selectedYears.clear();
     buildChips();
     applyFilter();
   }
@@ -321,13 +374,16 @@ function openImgModal(img) {
 }
 
 /* ============================= */
-/* 헤더 스크롤 시 그림자 효과 */
+/* 헤더 스크롤 시 색상 반전 */
 /* ============================= */
 document.addEventListener("scroll", () => {
   const header = document.querySelector(".subpage-header");
-  if (header) {
-    if (window.scrollY > 0) header.classList.add("scrolled");
-    else header.classList.remove("scrolled");
+  if (!header) return;
+
+  if (window.scrollY > 24) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
   }
 });
 
@@ -371,39 +427,67 @@ if (backToTopBtn) {
 
 /* =============================
    Achievements (Awards) 필터
+   - Type / Year 중복 선택 가능
+   - 같은 그룹 내부는 OR, 그룹 간에는 AND
 ============================= */
 (function(){
   const root = document.querySelector('.achievements-main');
   if (!root) return;
 
-  let currentType = 'all';
-  let currentYear = 'all';
+  let selectedTypes = new Set();
+  let selectedYears = new Set();
 
   const typeChips = root.querySelectorAll('#typeChips .chip');
   const yearChips = root.querySelectorAll('#yearChips .chip');
 
-  function setPressed(chips, attr, value){
+  function updatePressed(chips, attr, selectedSet){
     chips.forEach(btn=>{
-      const v = btn.getAttribute(attr);
-      const active = v === value;
+      const value = btn.getAttribute(attr);
+
+      let active;
+      if (value === 'all') {
+        active = selectedSet.size === 0;
+      } else {
+        active = selectedSet.has(value);
+      }
+
       btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       btn.classList.toggle('active', active);
     });
+  }
+
+  function toggleValue(selectedSet, value){
+    if (value === 'all') {
+      selectedSet.clear();
+      return;
+    }
+
+    if (selectedSet.has(value)) {
+      selectedSet.delete(value);
+    } else {
+      selectedSet.add(value);
+    }
   }
 
   function filterAwards(){
     root.querySelectorAll('.award-item').forEach(li=>{
       const ty = li.dataset.type || '';
       const yr = li.dataset.year || '';
-      const show =
-        (currentType === 'all' || ty === currentType) &&
-        (currentYear === 'all' || yr === currentYear);
+
+      const typeMatch = selectedTypes.size === 0 || selectedTypes.has(ty);
+      const yearMatch = selectedYears.size === 0 || selectedYears.has(yr);
+
+      const show = typeMatch && yearMatch;
+
       li.classList.toggle('hidden', !show);
       li.style.display = show ? '' : 'none';
     });
 
     root.querySelectorAll('.year-group').forEach(group=>{
-      const hasVisible = [...group.querySelectorAll('.award-item')].some(li => li.style.display !== 'none' && !li.classList.contains('hidden'));
+      const hasVisible = [...group.querySelectorAll('.award-item')].some(li => {
+        return li.style.display !== 'none' && !li.classList.contains('hidden');
+      });
+
       group.classList.toggle('hidden', !hasVisible);
       group.style.display = hasVisible ? '' : 'none';
     });
@@ -411,28 +495,29 @@ if (backToTopBtn) {
 
   typeChips.forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      currentType = btn.dataset.type || 'all';
-      setPressed(typeChips, 'data-type', currentType);
+      const value = btn.dataset.type || 'all';
+
+      toggleValue(selectedTypes, value);
+      updatePressed(typeChips, 'data-type', selectedTypes);
       filterAwards();
     });
   });
 
   yearChips.forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      currentYear = btn.dataset.year || 'all';
-      setPressed(yearChips, 'data-year', currentYear);
+      const value = btn.dataset.year || 'all';
+
+      toggleValue(selectedYears, value);
+      updatePressed(yearChips, 'data-year', selectedYears);
       filterAwards();
     });
   });
 
-  const initType = [...typeChips].find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.type || 'all';
-  const initYear = [...yearChips].find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.year || 'all';
+  selectedTypes.clear();
+  selectedYears.clear();
 
-  currentType = initType;
-  currentYear = initYear;
-
-  setPressed(typeChips, 'data-type', currentType);
-  setPressed(yearChips, 'data-year', currentYear);
+  updatePressed(typeChips, 'data-type', selectedTypes);
+  updatePressed(yearChips, 'data-year', selectedYears);
   filterAwards();
 })();
 

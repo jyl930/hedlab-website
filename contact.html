@@ -51,28 +51,7 @@
   </section>
 </main>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const path = window.location.pathname;
-    const filename = path.split('/').pop();
-
-    const menuMap = {
-      'member.html': 'menu-member',
-      'publications.html': 'menu-publications',
-      'activities.html': 'menu-activities',
-      'achievements.html': 'menu-achievements',
-      'contact.html': 'menu-contact'
-    };
-
-    const targetClass = menuMap[filename];
-    if (targetClass) {
-      const activeLink = document.querySelector(`.${targetClass}`);
-      if (activeLink) {
-        activeLink.classList.add('active');
-      }
-    }
-  });
-</script>
+<script src="script.js"></script>
 
 <footer class="site-footer">
   <p>© 2026 Human & Environment Design Lab. All rights reserved.</p>

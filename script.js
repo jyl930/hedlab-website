@@ -810,3 +810,179 @@ function hedSwitchTab(key, btn) {
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeModal();
 });
+
+/* =====================================================
+   FINAL MOBILE UPDATE — HED Lab
+   Mobile menu + Publications/Achievements filter accordions
+   ===================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  /* ---------- Mobile MENU + / MENU − ---------- */
+  const header = document.querySelector('.subpage-header');
+
+  if (header) {
+    const nav = header.querySelector('.nav-menu');
+
+    if (nav) {
+      nav.setAttribute('role', 'button');
+      nav.setAttribute('tabindex', '0');
+      nav.setAttribute('aria-expanded', 'false');
+
+      function closeMobileMenu() {
+        header.classList.remove('menu-open');
+        document.body.classList.remove('mobile-menu-open');
+        nav.setAttribute('aria-expanded', 'false');
+      }
+
+      function toggleMobileMenu() {
+        const isOpen = header.classList.toggle('menu-open');
+        document.body.classList.toggle('mobile-menu-open', isOpen);
+        nav.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+
+      nav.addEventListener('click', (e) => {
+        if (window.innerWidth > 768) return;
+
+        const clickedLink = e.target.closest('a');
+
+        if (clickedLink) {
+          closeMobileMenu();
+          return;
+        }
+
+        toggleMobileMenu();
+      });
+
+      nav.addEventListener('keydown', (e) => {
+        if (window.innerWidth > 768) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleMobileMenu();
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeMobileMenu();
+      });
+    }
+  }
+
+  /* ---------- Publications Filters + / − + Apply ---------- */
+  const pubSidebar = document.querySelector('main.publications-main .pub-sidebar');
+
+  if (pubSidebar) {
+    const filterTitle = pubSidebar.querySelector('#filters-title, h2');
+    const pubFilters = pubSidebar.querySelector('.pub-filters');
+
+    if (filterTitle && pubFilters) {
+      filterTitle.setAttribute('role', 'button');
+      filterTitle.setAttribute('tabindex', '0');
+      filterTitle.setAttribute('aria-expanded', 'false');
+
+      function closePubFilter() {
+        pubSidebar.classList.remove('filter-open');
+        filterTitle.setAttribute('aria-expanded', 'false');
+      }
+
+      function togglePubFilter() {
+        const isOpen = pubSidebar.classList.toggle('filter-open');
+        filterTitle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+
+      filterTitle.addEventListener('click', () => {
+        if (window.innerWidth <= 980) togglePubFilter();
+      });
+
+      filterTitle.addEventListener('keydown', (e) => {
+        if (window.innerWidth > 980) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          togglePubFilter();
+        }
+      });
+
+      let applyBtn = pubSidebar.querySelector('.pub-filter-apply');
+
+      if (!applyBtn) {
+        applyBtn = document.createElement('button');
+        applyBtn.type = 'button';
+        applyBtn.className = 'pub-filter-apply';
+        applyBtn.textContent = 'Apply Filters';
+        pubFilters.appendChild(applyBtn);
+      }
+
+      applyBtn.addEventListener('click', () => {
+        closePubFilter();
+
+        const content = document.querySelector('main.publications-main .publications-content');
+        if (content && window.innerWidth <= 980) {
+          content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 980) closePubFilter();
+      });
+    }
+  }
+
+  /* ---------- Achievements Filters + / − + Apply ---------- */
+  const achvFilter = document.querySelector('.achievements-filter');
+
+  if (achvFilter) {
+    const achvTitle = achvFilter.querySelector('h2');
+
+    if (achvTitle) {
+      achvTitle.setAttribute('role', 'button');
+      achvTitle.setAttribute('tabindex', '0');
+      achvTitle.setAttribute('aria-expanded', 'false');
+
+      function closeAchvFilter() {
+        achvFilter.classList.remove('filter-open');
+        achvTitle.setAttribute('aria-expanded', 'false');
+      }
+
+      function toggleAchvFilter() {
+        const isOpen = achvFilter.classList.toggle('filter-open');
+        achvTitle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+
+      achvTitle.addEventListener('click', () => {
+        if (window.innerWidth <= 900) toggleAchvFilter();
+      });
+
+      achvTitle.addEventListener('keydown', (e) => {
+        if (window.innerWidth > 900) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleAchvFilter();
+        }
+      });
+
+      let applyBtn = achvFilter.querySelector('.achv-filter-apply');
+
+      if (!applyBtn) {
+        applyBtn = document.createElement('button');
+        applyBtn.type = 'button';
+        applyBtn.className = 'achv-filter-apply';
+        applyBtn.textContent = 'Apply Filters';
+        achvFilter.appendChild(applyBtn);
+      }
+
+      applyBtn.addEventListener('click', () => {
+        closeAchvFilter();
+
+        const awards = document.querySelector('.achievements-main .awards');
+        if (awards && window.innerWidth <= 900) {
+          awards.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) closeAchvFilter();
+      });
+    }
+  }
+});

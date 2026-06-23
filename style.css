@@ -1570,57 +1570,146 @@ body.home .type-line{
 .hed-achv-meta  { font-size: 12px; color: #888; }
 
 /* =====================================================
-   MOBILE OPTIMIZATION — HED Lab
-   기존 디자인 유지 + 모바일 필터/탭 가시성 개선
-   style.css 맨 아래에 추가
+   FINAL MOBILE UPDATE — HED Lab
+   2026 mobile navigation + filter accordion system
+   데스크톱 디자인은 유지하고, 모바일 서브페이지에서만 작동
    ===================================================== */
 
-
-/* 1) 모바일 헤더: 메뉴가 좁은 화면에서 잘리지 않도록 */
 @media (max-width: 768px) {
+  /* ---------- Mobile subpage header: MENU + / HED Lab ---------- */
   .subpage-header {
-    padding: 16px 16px 12px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    min-height: 52px;
+    padding: 0 16px !important;
+    display: grid !important;
+    grid-template-columns: 86px 1fr 86px;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    z-index: 1000;
   }
 
-  .lab-name a {
-    font-size: 16px;
-    line-height: 1.2;
+  .subpage-header.scrolled {
+    box-shadow: none;
   }
 
-  .nav-menu {
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .subpage-header .lab-name {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-size: 0;
   }
 
-  .nav-menu ul {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 18px;
-    width: max-content;
-    min-width: 100%;
+  .subpage-header .lab-name a {
+    display: inline-block;
+    font-size: 0 !important;
+    line-height: 1;
+    color: #000;
+    text-decoration: none;
   }
 
-  .nav-menu li {
-    flex: 0 0 auto;
+  .subpage-header .lab-name a::after {
+    content: "HED Lab";
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: #000;
   }
 
-  .nav-menu li a {
+  .subpage-header .lab-name a:hover {
+    text-decoration: none;
+  }
+
+  .subpage-header .nav-menu {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    align-self: center;
+    width: auto !important;
+    min-width: 0;
+    display: block !important;
+    overflow: visible !important;
+    flex: none;
+    cursor: pointer;
+  }
+
+  .subpage-header .nav-menu::before {
+    content: "MENU +";
+    display: block;
     font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .02em;
+    color: #000;
     white-space: nowrap;
   }
 
-  .nav-menu::-webkit-scrollbar {
-    display: none;
+  .subpage-header.menu-open .nav-menu::before {
+    content: "MENU −";
+  }
+
+  .subpage-header .nav-menu ul {
+    display: none !important;
+  }
+
+  .subpage-header.menu-open .nav-menu ul {
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 52px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 18px 16px 20px;
+    list-style: none;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 10px 20px rgba(0,0,0,.035);
+  }
+
+  .subpage-header.menu-open .nav-menu li {
+    display: block;
+    margin: 0;
+  }
+
+  .subpage-header.menu-open .nav-menu li a {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #777;
+    text-decoration: none;
+    letter-spacing: .02em;
+  }
+
+  .subpage-header.menu-open .nav-menu li a.active {
+    color: #000;
+    font-weight: 800;
+    text-decoration: underline;
+  }
+
+  body.mobile-menu-open .member-main,
+  body.mobile-menu-open .publications-main,
+  body.mobile-menu-open .activities-main,
+  body.mobile-menu-open .achievements-main,
+  body.mobile-menu-open .contact-main {
+    padding-top: 226px !important;
   }
 }
 
 
-/* 2) Publications 모바일: 필터를 본문 위에 잘 보이게 */
+/* ---------- Publications mobile: Recent/Past sticky + Filters accordion ---------- */
 @media (max-width: 980px) {
   main.publications-main {
     display: grid;
@@ -1628,118 +1717,204 @@ body.home .type-line{
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-
-    /* 고정 헤더 높이 고려 */
-    padding: 126px 16px 56px !important;
-    row-gap: 24px;
+    padding: 80px 16px 56px !important;
+    row-gap: 18px;
   }
 
   main.publications-main .pub-sidebar {
-    position: sticky;
-    top: 88px;
-    z-index: 900;
+    grid-column: 1;
+    position: static !important;
+    top: auto !important;
     width: 100%;
-    margin: 0 0 20px;
-    padding: 12px 0 14px;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid #eee;
+    margin: 0 0 18px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    text-align: left !important;
   }
 
-  main.publications-main .pub-sidebar h2 {
-    font-size: 14px;
-    margin: 0 0 10px;
-  }
-
-  /* Recent / Past 탭 */
   main.publications-main .tab-menu {
-    position: static;
+    position: sticky !important;
+    top: 52px;
+    z-index: 850;
     display: flex;
     flex-direction: row;
-    gap: 28px;              /* 탭 간격 넓힘 */
+    gap: 28px;
     overflow-x: auto;
     white-space: nowrap;
-    padding-bottom: 6px;
-    margin-bottom: 14px;
-    background: transparent;
-  }
-
-  main.publications-main .tab-menu .tab {
-    flex: 0 0 auto;
-    min-width: max-content; /* 긴 탭 글자 겹침 방지 */
-    white-space: nowrap;
-    font-size: 14px;
-    padding: 2px 0;
+    margin: 0 -16px 14px;
+    padding: 11px 16px 12px;
+    background: rgba(255,255,255,.98);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #eee;
   }
 
   main.publications-main .tab-menu::-webkit-scrollbar {
     display: none;
   }
 
-  /* 필터 전체 */
-  main.publications-main .pub-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0;
+  main.publications-main .tab-menu .tab {
+    flex: 0 0 auto;
+    min-width: max-content;
+    white-space: nowrap;
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 0;
   }
 
-  main.publications-main .filter-group {
-    margin-bottom: 0;
+  main.publications-main .pub-sidebar h2,
+  main.publications-main .pub-sidebar #filters-title {
+    position: relative;
+    display: block;
     width: 100%;
+    margin: 0;
+    padding: 11px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    color: #000;
+    cursor: pointer;
+  }
+
+  main.publications-main .pub-sidebar h2::after,
+  main.publications-main .pub-sidebar #filters-title::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  main.publications-main .pub-sidebar.filter-open h2::after,
+  main.publications-main .pub-sidebar.filter-open #filters-title::after {
+    content: "−";
+  }
+
+  main.publications-main .pub-filters {
+    display: none !important;
+    margin: 0;
+    padding: 16px 0 18px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+  }
+
+  main.publications-main .pub-sidebar.filter-open .pub-filters {
+    display: flex !important;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  main.publications-main .pub-filters .filter-group,
+  main.publications-main .filter-group {
+    width: 100%;
+    margin: 0;
+    align-items: flex-start !important;
   }
 
   main.publications-main .filter-label {
+    display: block;
+    margin: 0 0 10px;
     font-size: 11px;
-    margin-bottom: 8px;
-  }
-
-  main.publications-main .chip-row {
-    gap: 8px;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  main.publications-main .chip-row::-webkit-scrollbar {
-    display: none;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #777;
   }
 
   main.publications-main .chip {
-    font-size: 13px;
-    padding: 7px 12px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
   }
 
-  /* Category 칩: 긴 문구가 겹치지 않도록 2열 그리드 */
-  main.publications-main #pubCatChips {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  main.publications-main #pubCatChips,
+  main.publications-main #pubYearChips {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
     gap: 8px;
+    width: 100%;
+    padding: 0;
     overflow: visible;
   }
 
-  main.publications-main #pubCatChips .chip {
-    width: 100%;
-    min-height: 36px;
-    padding: 7px 10px;
-    line-height: 1.25;
+  main.publications-main #pubCatChips .chip,
+  main.publications-main #pubYearChips .chip {
+    position: relative;
+    width: auto;
+    min-height: 18px;
+    padding: 0 0 0 24px;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
     text-align: left;
-
-    /* 긴 카테고리명 겹침 방지 */
+    color: #222;
     white-space: normal;
     overflow-wrap: anywhere;
     word-break: keep-all;
   }
 
-  /* Year 칩: 숫자가 짧으므로 한 줄 가로 스크롤 유지 */
-  main.publications-main #pubYearChips {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+  main.publications-main #pubCatChips .chip::before,
+  main.publications-main #pubYearChips .chip::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .18em;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #111;
+    background: #fff;
   }
 
-  main.publications-main #pubYearChips .chip {
-    flex: 0 0 auto;
-    white-space: nowrap;
+  main.publications-main #pubCatChips .chip[aria-pressed="true"],
+  main.publications-main #pubCatChips .chip.active,
+  main.publications-main #pubYearChips .chip[aria-pressed="true"],
+  main.publications-main #pubYearChips .chip.active {
+    font-weight: 800;
+  }
+
+  main.publications-main #pubCatChips .chip[aria-pressed="true"]::before,
+  main.publications-main #pubCatChips .chip.active::before,
+  main.publications-main #pubYearChips .chip[aria-pressed="true"]::before,
+  main.publications-main #pubYearChips .chip.active::before {
+    background: #111;
+  }
+
+  main.publications-main #pubCatChips .chip[aria-pressed="true"]::after,
+  main.publications-main #pubCatChips .chip.active::after,
+  main.publications-main #pubYearChips .chip[aria-pressed="true"]::after,
+  main.publications-main #pubYearChips .chip.active::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: .24em;
+    width: 4px;
+    height: 8px;
+    transform: rotate(45deg);
+    border-right: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+  }
+
+  main.publications-main .pub-filter-apply {
+    width: 100%;
+    margin-top: 2px;
+    padding: 11px 0;
+    border: 1px solid #111;
+    background: #111;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    cursor: pointer;
   }
 
   main.publications-main .publications-content {
@@ -1773,7 +1948,7 @@ body.home .type-line{
 }
 
 
-/* 3) Achievements 모바일: 필터를 본문 위 sticky chip bar로 변경 */
+/* ---------- Achievements mobile: same Filters accordion system ---------- */
 @media (max-width: 900px) {
   .achievements-main {
     display: grid;
@@ -1781,57 +1956,153 @@ body.home .type-line{
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 126px 16px 56px;
-    row-gap: 24px;
+    padding: 80px 16px 56px;
+    row-gap: 18px;
   }
 
   .achievements-filter {
-    position: sticky;
-    top: 88px;
-    z-index: 900;
+    position: static !important;
+    top: auto !important;
     width: 100%;
-    padding: 12px 0 14px;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid #eee;
+    margin: 0 0 18px;
+    padding: 0;
+    background: transparent;
+    border: none;
   }
 
   .achievements-filter h2 {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 11px 0;
+    border-bottom: 1px solid #eee;
     font-size: 14px;
-    margin: 0 0 10px;
+    font-weight: 800;
+    line-height: 1;
+    color: #000;
+    cursor: pointer;
   }
 
-  .achievements-filter .filter-group {
-    margin-bottom: 12px;
+  .achievements-filter h2::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
   }
 
-  .achievements-filter .filter-group:last-child {
-    margin-bottom: 0;
+  .achievements-filter.filter-open h2::after {
+    content: "−";
+  }
+
+  .achievements-filter .filter-group,
+  .achievements-filter .achv-filter-apply {
+    display: none;
+  }
+
+  .achievements-filter.filter-open .filter-group {
+    display: block;
+    width: 100%;
+    margin: 0 0 18px;
+  }
+
+  .achievements-filter.filter-open .filter-group:first-of-type {
+    margin-top: 16px;
+  }
+
+  .achievements-filter.filter-open .achv-filter-apply {
+    display: block;
   }
 
   .achievements-filter .filter-label {
+    display: block;
+    margin: 0 0 10px;
     font-size: 11px;
-    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #777;
   }
 
   .achievements-filter .chip-row {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .achievements-filter .chip-row::-webkit-scrollbar {
-    display: none;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
   }
 
   .achievements-filter .chip {
-    flex: 0 0 auto;
+    position: relative;
+    width: auto;
+    min-height: 18px;
+    padding: 0 0 0 24px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
     font-size: 13px;
-    padding: 7px 12px;
-    white-space: nowrap;
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: left;
+    color: #222;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+
+  .achievements-filter .chip::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: .18em;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #111;
+    background: #fff;
+  }
+
+  .achievements-filter .chip[aria-pressed="true"],
+  .achievements-filter .chip.active {
+    font-weight: 800;
+  }
+
+  .achievements-filter .chip[aria-pressed="true"]::before,
+  .achievements-filter .chip.active::before {
+    background: #111;
+  }
+
+  .achievements-filter .chip[aria-pressed="true"]::after,
+  .achievements-filter .chip.active::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: .24em;
+    width: 4px;
+    height: 8px;
+    transform: rotate(45deg);
+    border-right: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+  }
+
+  .achievements-filter .achv-filter-apply {
+    width: 100%;
+    margin-top: 2px;
+    padding: 11px 0;
+    border: 1px solid #111;
+    background: #111;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    cursor: pointer;
   }
 
   .awards {
@@ -1841,8 +2112,9 @@ body.home .type-line{
   }
 
   .year-heading {
-    top: 88px;
-    z-index: 20;
+    position: static;
+    top: auto;
+    z-index: auto;
   }
 
   .award-item {
@@ -1869,27 +2141,27 @@ body.home .type-line{
 }
 
 
-/* 4) Activities 모바일: 탭이 잘 보이도록 */
+/* ---------- Activities mobile: MENU header와 충돌하지 않는 탭 정리 ---------- */
 @media (max-width: 900px) {
   .activities-main {
     display: grid;
     grid-template-columns: 1fr;
-    padding: 126px 16px 56px;
-    row-gap: 24px;
+    padding: 80px 16px 56px;
+    row-gap: 22px;
   }
 
   .activities-main .tab-menu {
     position: sticky;
-    top: 88px;
-    z-index: 900;
+    top: 52px;
+    z-index: 850;
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 24px;
     overflow-x: auto;
     white-space: nowrap;
-    padding: 12px 0 14px;
-    margin: 0;
-    background: rgba(255, 255, 255, 0.96);
+    margin: 0 -16px 14px;
+    padding: 11px 16px 12px;
+    background: rgba(255,255,255,.98);
     backdrop-filter: blur(6px);
     border-bottom: 1px solid #eee;
   }
@@ -1928,43 +2200,32 @@ body.home .type-line{
 }
 
 
-/* 5) 초소형 화면 보정 */
+/* ---------- Member / Contact mobile top spacing ---------- */
+@media (max-width: 768px) {
+  .member-main {
+    padding-top: 84px !important;
+  }
+
+  .contact-main {
+    padding-top: 84px !important;
+  }
+}
+
 @media (max-width: 420px) {
-  .subpage-header {
-    padding: 14px 14px 10px;
-  }
-
-  .lab-name a {
-    font-size: 15px;
-  }
-
-  .nav-menu li a {
-    font-size: 12px;
-  }
-
   main.publications-main,
   .achievements-main,
-  .activities-main {
+  .activities-main,
+  .member-main,
+  .contact-main {
     padding-left: 14px !important;
     padding-right: 14px !important;
   }
 
-  main.publications-main .pub-sidebar,
-  .achievements-filter,
+  main.publications-main .tab-menu,
   .activities-main .tab-menu {
-    top: 84px;
-  }
-
-  .chip {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-}
-
-
-/* 6) 아주 좁은 화면에서는 Publications Category 칩을 1열로 전환 */
-@media (max-width: 360px) {
-  main.publications-main #pubCatChips {
-    grid-template-columns: 1fr;
+    margin-left: -14px;
+    margin-right: -14px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 }

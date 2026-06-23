@@ -1061,11 +1061,13 @@ img { max-width: 100%; height: auto; } /* 전역: 비율 유지 */
   .cv-list li{ font-size:13.5px; }
 }
 
-/* === Align member items with professor text column (lists only) === */
+/* === Align all member items with professor text column === */
+.member-section {
+  width: 100%;
+}
+
 @media (min-width: 721px){
-  /* 교수 섹션을 제외한 모든 섹션의 '항목 리스트'만 들여쓰기 */
-  .member-section:not(:first-of-type) .member-list{
-    /* 사진 너비 + 카드 안쪽 패딩(20px) + 사진·텍스트 간격(24px) */
+  .member-section .member-list{
     padding-left: calc(var(--prof-photo-w, 260px) + 44px);
   }
 }

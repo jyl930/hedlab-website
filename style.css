@@ -1568,3 +1568,403 @@ body.home .type-line{
 }
 .hed-achv-title { font-size: 14px; font-weight: 700; line-height: 1.55; margin-bottom: 2px; }
 .hed-achv-meta  { font-size: 12px; color: #888; }
+
+/* =====================================================
+   MOBILE OPTIMIZATION — HED Lab
+   기존 디자인 유지 + 모바일 필터/탭 가시성 개선
+   style.css 맨 아래에 추가
+   ===================================================== */
+
+
+/* 1) 모바일 헤더: 메뉴가 좁은 화면에서 잘리지 않도록 */
+@media (max-width: 768px) {
+  .subpage-header {
+    padding: 16px 16px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .lab-name a {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .nav-menu {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-menu ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 18px;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .nav-menu li {
+    flex: 0 0 auto;
+  }
+
+  .nav-menu li a {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+/* 2) Publications 모바일: 필터를 본문 위에 잘 보이게 */
+@media (max-width: 980px) {
+  main.publications-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+
+    /* 고정 헤더 높이 고려 */
+    padding: 126px 16px 56px !important;
+    row-gap: 24px;
+  }
+
+  main.publications-main .pub-sidebar {
+    position: sticky;
+    top: 88px;
+    z-index: 900;
+    width: 100%;
+    margin: 0 0 20px;
+    padding: 12px 0 14px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #eee;
+  }
+
+  main.publications-main .pub-sidebar h2 {
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  /* Recent / Past 탭 */
+  main.publications-main .tab-menu {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 28px;              /* 탭 간격 넓힘 */
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    background: transparent;
+  }
+
+  main.publications-main .tab-menu .tab {
+    flex: 0 0 auto;
+    min-width: max-content; /* 긴 탭 글자 겹침 방지 */
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 2px 0;
+  }
+
+  main.publications-main .tab-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 필터 전체 */
+  main.publications-main .pub-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+  }
+
+  main.publications-main .filter-group {
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  main.publications-main .filter-label {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  main.publications-main .chip-row {
+    gap: 8px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  main.publications-main .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  main.publications-main .chip {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+
+  /* Category 칩: 긴 문구가 겹치지 않도록 2열 그리드 */
+  main.publications-main #pubCatChips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+  }
+
+  main.publications-main #pubCatChips .chip {
+    width: 100%;
+    min-height: 36px;
+    padding: 7px 10px;
+    line-height: 1.25;
+    text-align: left;
+
+    /* 긴 카테고리명 겹침 방지 */
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+
+  /* Year 칩: 숫자가 짧으므로 한 줄 가로 스크롤 유지 */
+  main.publications-main #pubYearChips {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  main.publications-main #pubYearChips .chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  main.publications-main .publications-content {
+    grid-column: 1;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+  }
+
+  .publications-section h3 {
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+
+  .pub-category {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 36px;
+  }
+
+  .pub-list li {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .pub-list .authors {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
+
+/* 3) Achievements 모바일: 필터를 본문 위 sticky chip bar로 변경 */
+@media (max-width: 900px) {
+  .achievements-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 126px 16px 56px;
+    row-gap: 24px;
+  }
+
+  .achievements-filter {
+    position: sticky;
+    top: 88px;
+    z-index: 900;
+    width: 100%;
+    padding: 12px 0 14px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #eee;
+  }
+
+  .achievements-filter h2 {
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  .achievements-filter .filter-group {
+    margin-bottom: 12px;
+  }
+
+  .achievements-filter .filter-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .achievements-filter .filter-label {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .achievements-filter .chip-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .achievements-filter .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .achievements-filter .chip {
+    flex: 0 0 auto;
+    font-size: 13px;
+    padding: 7px 12px;
+    white-space: nowrap;
+  }
+
+  .awards {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+  }
+
+  .year-heading {
+    top: 88px;
+    z-index: 20;
+  }
+
+  .award-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px 0;
+  }
+
+  .award-item .left {
+    order: 2;
+  }
+
+  .award-body {
+    order: 1;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .badge {
+    margin-left: 0;
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+}
+
+
+/* 4) Activities 모바일: 탭이 잘 보이도록 */
+@media (max-width: 900px) {
+  .activities-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 126px 16px 56px;
+    row-gap: 24px;
+  }
+
+  .activities-main .tab-menu {
+    position: sticky;
+    top: 88px;
+    z-index: 900;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 12px 0 14px;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #eee;
+  }
+
+  .activities-main .tab-menu .tab {
+    flex: 0 0 auto;
+    font-size: 14px;
+  }
+
+  .activities-main .tab-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .activities-content {
+    width: 100%;
+  }
+
+  .conf-list li {
+    gap: 14px;
+  }
+
+  .poster {
+    width: 92px;
+    height: 92px;
+  }
+
+  .title-link,
+  .title-text {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .conf-info .authors {
+    font-size: 13px;
+  }
+}
+
+
+/* 5) 초소형 화면 보정 */
+@media (max-width: 420px) {
+  .subpage-header {
+    padding: 14px 14px 10px;
+  }
+
+  .lab-name a {
+    font-size: 15px;
+  }
+
+  .nav-menu li a {
+    font-size: 12px;
+  }
+
+  main.publications-main,
+  .achievements-main,
+  .activities-main {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  main.publications-main .pub-sidebar,
+  .achievements-filter,
+  .activities-main .tab-menu {
+    top: 84px;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+
+/* 6) 아주 좁은 화면에서는 Publications Category 칩을 1열로 전환 */
+@media (max-width: 360px) {
+  main.publications-main #pubCatChips {
+    grid-template-columns: 1fr;
+  }
+}

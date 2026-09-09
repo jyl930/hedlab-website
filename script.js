@@ -572,6 +572,21 @@ const PERSONAL_ACTS = [
   { title: "Shell to Shell",
     authors: "Juyoung Lee, Euna Shin, Soongak Jang",
     year: 2026, venue: "GREEN MATERIAL Tokyo 2026, Tokyo, Japan" },
+
+    // ── 민서영 ──
+  { title: "Stratified Layer",
+    authors: "Jian Han, Yonggi Kim, Seoyoung Min, Soongak Jang",
+    year: 2026, venue: "Habitare 2026, Helsinki, Finland" },
+
+    // ── 최주하 ──
+  { title: "RE : CLUMP",
+    authors: "Jiwon Park, Sangbum Shin, Juha Choi, Soongak Jang",
+    year: 2026, venue: "Habitare 2026, Helsinki, Finland" },
+
+    // ── 홍준수 ──
+  { title: "MY-sabi Tile",
+    authors: "Junesoo Hong, Gayeong Son, Jaehong Park, Soongak Jang",
+    year: 2026, venue: "Habitare 2026, Helsinki, Finland" },
 ];
 
 const PERSONAL_ACHV = [

@@ -2417,11 +2417,15 @@ body.home .type-line{
 }
 
 
+
 /* Member - Personal Website */
+/* Research Interests, Email과 동일한 스타일 */
+
 .member-website {
   font-size: 14px;
   color: #555;
   margin: 0;
+  padding: 0;
   line-height: 1.4;
 }
 
@@ -2430,12 +2434,22 @@ body.home .type-line{
   color: #333;
 }
 
-.member-website a {
+.member-website a,
+.member-website a:visited {
   color: #555;
+  font-size: inherit;
+  font-weight: 400;
   text-decoration: none;
 }
 
 .member-website a:hover {
-  color: #000;
+  color: #111;
   text-decoration: underline;
+}
+
+/* 모바일 */
+@media (max-width: 640px) {
+  .member-website {
+    font-size: 13px;
+  }
 }

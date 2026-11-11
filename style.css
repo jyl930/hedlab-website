@@ -2415,3 +2415,27 @@ body.home .type-line{
     text-decoration-color: #fff;
   }
 }
+
+
+/* Member - Personal Website */
+.member-website {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.member-website strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.member-website a {
+  color: #555;
+  text-decoration: none;
+}
+
+.member-website a:hover {
+  color: #000;
+  text-decoration: underline;
+}

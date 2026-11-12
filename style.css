@@ -2594,3 +2594,58 @@ body.home .type-line{
     color: #fff;
   }
 }
+
+
+/* ==========================================
+   HED LAB — COMPLETE HOVER ACCENT
+   ========================================== */
+
+/* 메인 홈페이지 메뉴 */
+.menu a:hover {
+  color: #267C78;
+}
+
+/* PC 상단 네비게이션 */
+@media (min-width: 769px) {
+  .subpage-header:not(.scrolled) .nav-menu li a:hover {
+    color: #267C78;
+  }
+
+  /* 검정 헤더에서는 밝은 Teal 사용 */
+  .subpage-header.scrolled .nav-menu li a:hover {
+    color: #67C2B8;
+  }
+}
+
+/* Publications / Activities 페이지 탭 */
+main.publications-main .tab-menu .tab:hover,
+.activities-main .tab-menu .tab:hover {
+  color: #267C78;
+}
+
+/* 논문 제목 */
+.publications-main .pub-list a:hover {
+  color: #267C78;
+}
+
+/* Activities 제목 */
+.activities-main .title-link:hover {
+  color: #267C78;
+}
+
+/* Member 이름 */
+.member-main .member-name-link:hover {
+  color: #267C78;
+}
+
+/* Show More / Show Less */
+.publications-main .toggle-btn:hover {
+  color: #267C78;
+}
+
+/* 모바일 펼침 메뉴 */
+@media (max-width: 768px) {
+  .subpage-header.menu-open:not(.scrolled) .nav-menu li a:hover {
+    color: #267C78;
+  }
+}

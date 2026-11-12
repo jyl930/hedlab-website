@@ -2667,25 +2667,33 @@ main.publications-main .tab-menu .tab:hover,
 }
 
 
-/* 2. PUBLICATIONS — 카테고리 제목 배경 강조 */
-
+/* 2. PUBLICATIONS — 카테고리 텍스트만 Deep Teal 배경 */
 .publications-main .pub-category {
-  display: table;
-  width: fit-content;
-  max-width: 100%;
-  padding: 3px 6px;
-  margin-left: -6px;
-
-  background-color: var(--hed-accent, #267C78);
-  color: #fff;
-
+  display: block;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  margin-left: 0;
+  background: transparent;
+  color: #000;
   font-weight: 700;
   line-height: 1.5;
 }
 
-/* 카테고리 제목 아래 구분선은 기존 유지 */
-.publications-main hr.divider {
+/* 제목 텍스트만 타이트하게 강조, 구분선은 배경 바깥 */
+.publications-main .pub-category .pub-category-label {
+  display: inline;
+  padding: 2px 4px;
+  background: var(--hed-accent, #267C78);
+  color: #fff;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.publications-main .pub-category hr.divider {
+  border: none;
   border-top: 1px solid #ddd;
+  margin: 8px 0 16px;
 }
 
 

@@ -367,25 +367,30 @@ hr.divider {
 }
 
 .pub-list li {
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   line-height: 1.6;
+  font-weight: 700;
 }
 
 .pub-list .authors {
   display: block;
   font-size: 14px;
+  font-weight: 400;
   color: #555;
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .pub-list a {
-  color: #000;              /* 항상 검정색 */
-  text-decoration: none;    /* 기본 밑줄 제거 */
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
 }
 
+/* 링크가 있는 제목만 Hover 효과 */
 .pub-list a:hover {
-  text-decoration: underline; /* hover 시 밑줄 */
+  text-decoration: underline;
 }
+
 
 .toggle-btn {
   font-size: 14px;

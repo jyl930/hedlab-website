@@ -790,12 +790,19 @@ hr.divider {
   margin: 0 auto;
 }
 
-.hero-video video {
+.hero-braille {
   width: 100%;
   max-width: 1000px;
-  height: auto;
-  border-radius: 4px;
+  aspect-ratio: 3840 / 1992;
   margin-bottom: 40px;
+  border-top: 1px solid #e6e9e8;
+  border-bottom: 1px solid #e6e9e8;
+}
+
+.hero-braille canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .contact-content {

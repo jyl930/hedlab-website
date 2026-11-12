@@ -2,6 +2,8 @@
 (function () {
   var canvas = document.getElementById('hedBraille');
   if (!canvas) return;
+  canvas.parentElement.style.width = '100%';
+  canvas.style.display = 'block';
   var ctx = canvas.getContext('2d');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -30,9 +32,12 @@
 
 
   function build() {
-    var box = canvas.parentElement.getBoundingClientRect();
-    W = box.width; H = box.height;
+    // Size comes from the wrapper's width alone and is written out in pixels, so the
+    // canvas's own bitmap size can never feed back into the layout.
+    W = Math.max(1, Math.round(canvas.parentElement.clientWidth));
+    H = Math.round(W * 1992 / 3840);
     dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
 
     var x0 = W * 0.07;
@@ -190,6 +195,7 @@
 
   var resizeTimer;
   new ResizeObserver(function () {
+    if (Math.round(canvas.parentElement.clientWidth) === W) return;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () { build(); if (reduce) frame(13.4); }, 120);
   }).observe(canvas.parentElement);

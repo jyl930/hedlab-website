@@ -10,6 +10,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="assets/icons/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,11 +33,8 @@
 </header>
 
 <main class="contact-main">
-  <section class="hero-video">
-    <video autoplay loop muted playsinline>
-      <source src="assets/contact-hed.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+  <section class="hero-braille">
+    <canvas id="hedBraille" role="img" aria-label="Human &amp; Environment Design Lab — 점자로 쓰인 연구실 이름이 점 글자로 바뀌는 애니메이션"></canvas>
   </section>
 
   <section class="contact-content">
@@ -52,6 +52,7 @@
 </main>
 
 <script src="script.js"></script>
+<script src="contact-braille.js"></script>
 
 <footer class="site-footer">
   <p>© 2026 Human & Environment Design Lab. All rights reserved.</p>

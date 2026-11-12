@@ -532,19 +532,25 @@ hr.divider {
   margin-top: 0;
 }
 
-.conf-category {
+
+/* ACTIVITIES — Category Typography */
+
+.activities-main .conf-category {
   font-weight: 700;
+  color: #267C78;
   margin-top: 30px;
   margin-bottom: 12px;
   position: relative;
 }
-.conf-category::after {
+
+/* 기존 회색 구분선 유지 */
+.activities-main .conf-category::after {
   content: "";
   display: block;
-  border: none;
   border-top: 1px solid #ddd;
   margin: 8px 0 16px;
 }
+
 
 .conf-list {
   list-style: none;
@@ -2651,12 +2657,6 @@ main.publications-main .tab-menu .tab:hover,
 }
 
 
-/* =====================================================
-   HED LAB — DEEP TEAL DESIGN UPDATE
-   1. Index menu hover
-   2. Publications category highlight
-   3. Selected filter: Teal background + White text
-   ===================================================== */
 
 
 /* 1. INDEX — 메인 메뉴 Hover */
@@ -2667,7 +2667,10 @@ main.publications-main .tab-menu .tab:hover,
 }
 
 
-/* 2. PUBLICATIONS — 카테고리 텍스트만 Deep Teal 배경 */
+
+/* 2. PUBLICATIONS — 카테고리 텍스트 Deep Teal */
+
+/* 카테고리 영역 */
 .publications-main .pub-category {
   display: block;
   width: 100%;
@@ -2675,26 +2678,27 @@ main.publications-main .tab-menu .tab:hover,
   padding: 0;
   margin-left: 0;
   background: transparent;
-  color: #000;
+  color: #267C78;
   font-weight: 700;
   line-height: 1.5;
 }
 
-/* 제목 텍스트만 타이트하게 강조, 구분선은 배경 바깥 */
+/* 카테고리 제목 */
 .publications-main .pub-category .pub-category-label {
   display: inline;
-  padding: 2px 4px;
-  background: var(--hed-accent, #267C78);
-  color: #fff;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+  padding: 0;
+  background: transparent;
+  color: #267C78;
+  font-weight: 700;
 }
 
+/* 기존 회색 구분선 유지 */
 .publications-main .pub-category hr.divider {
   border: none;
   border-top: 1px solid #ddd;
   margin: 8px 0 16px;
 }
+
 
 
 /* 3. PUBLICATIONS & ACHIEVEMENTS
